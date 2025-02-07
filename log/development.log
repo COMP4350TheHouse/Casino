@@ -8,3 +8,393 @@ Processing by Rails::WelcomeController#index as HTML
 Completed 200 OK in 65ms (Views: 5.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2025-02-05 17:01:38 -0600
+  
+ActiveRecord::NoDatabaseError (We could not find your database: casino_development. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+)
+Caused by: Mysql2::Error (Unknown database 'casino_development')
+
+Information for: ActiveRecord::NoDatabaseError (We could not find your database: casino_development. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:29:in `rescue in new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:138:in `connect'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:147:in `block in reconnect'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:144:in `reconnect'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:669:in `block in reconnect!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:668:in `reconnect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:770:in `block in verify!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:761:in `verify!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:778:in `connect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:984:in `block in with_raw_connection'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:983:in `with_raw_connection'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_mysql_adapter.rb:692:in `quote_string'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/quoting.rb:76:in `quote'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:260:in `quoted_scope'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:242:in `data_source_sql'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/schema_statements.rb:60:in `table_exists?'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:55:in `block in create_table'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:418:in `with_connection'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:54:in `create_table'
+activerecord (8.0.1) lib/active_record/migration.rb:1431:in `initialize'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `new'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `open'
+activerecord (8.0.1) lib/active_record/migration.rb:763:in `block (2 levels) in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration/pending_migration_connection.rb:8:in `with_temporary_pool'
+activerecord (8.0.1) lib/active_record/migration.rb:762:in `block in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `each'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:740:in `check_pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (8.0.1) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.9) lib/rack/method_override.rb:28:in `call'
+rack (3.1.9) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.6.0) lib/puma/configuration.rb:279:in `call'
+puma (6.6.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.0) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.0) lib/puma/server.rb:472:in `process_client'
+puma (6.6.0) lib/puma/server.rb:254:in `block in run'
+puma (6.6.0) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+
+Information for cause: Mysql2::Error (Unknown database 'casino_development'):
+  
+mysql2 (0.5.6) lib/mysql2/client.rb:97:in `connect'
+mysql2 (0.5.6) lib/mysql2/client.rb:97:in `initialize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:25:in `new'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:25:in `new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:138:in `connect'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:147:in `block in reconnect'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:144:in `reconnect'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:669:in `block in reconnect!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:668:in `reconnect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:770:in `block in verify!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:761:in `verify!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:778:in `connect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:984:in `block in with_raw_connection'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:983:in `with_raw_connection'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_mysql_adapter.rb:692:in `quote_string'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/quoting.rb:76:in `quote'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:260:in `quoted_scope'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:242:in `data_source_sql'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/schema_statements.rb:60:in `table_exists?'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:55:in `block in create_table'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:418:in `with_connection'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:54:in `create_table'
+activerecord (8.0.1) lib/active_record/migration.rb:1431:in `initialize'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `new'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `open'
+activerecord (8.0.1) lib/active_record/migration.rb:763:in `block (2 levels) in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration/pending_migration_connection.rb:8:in `with_temporary_pool'
+activerecord (8.0.1) lib/active_record/migration.rb:762:in `block in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `each'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:740:in `check_pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (8.0.1) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.9) lib/rack/method_override.rb:28:in `call'
+rack (3.1.9) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.6.0) lib/puma/configuration.rb:279:in `call'
+puma (6.6.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.0) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.0) lib/puma/server.rb:472:in `process_client'
+puma (6.6.0) lib/puma/server.rb:254:in `block in run'
+puma (6.6.0) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+Started GET "/favicon.ico" for 127.0.0.1 at 2025-02-05 17:01:38 -0600
+  
+ActiveRecord::NoDatabaseError (We could not find your database: casino_development. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+)
+Caused by: Mysql2::Error (Unknown database 'casino_development')
+
+Information for: ActiveRecord::NoDatabaseError (We could not find your database: casino_development. Available database configurations can be found in config/database.yml.
+
+To resolve this error:
+
+- Did you not create the database, or did you delete it? To create the database, run:
+
+    bin/rails db:create
+
+- Has the database name changed? Verify that config/database.yml contains the correct database name.
+):
+  
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:29:in `rescue in new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:24:in `new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:138:in `connect'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:147:in `block in reconnect'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:144:in `reconnect'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:669:in `block in reconnect!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:668:in `reconnect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:770:in `block in verify!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:761:in `verify!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:778:in `connect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:984:in `block in with_raw_connection'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:983:in `with_raw_connection'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_mysql_adapter.rb:692:in `quote_string'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/quoting.rb:76:in `quote'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:260:in `quoted_scope'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:242:in `data_source_sql'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/schema_statements.rb:60:in `table_exists?'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:55:in `block in create_table'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:418:in `with_connection'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:54:in `create_table'
+activerecord (8.0.1) lib/active_record/migration.rb:1431:in `initialize'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `new'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `open'
+activerecord (8.0.1) lib/active_record/migration.rb:763:in `block (2 levels) in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration/pending_migration_connection.rb:8:in `with_temporary_pool'
+activerecord (8.0.1) lib/active_record/migration.rb:762:in `block in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `each'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:740:in `check_pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (8.0.1) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.9) lib/rack/method_override.rb:28:in `call'
+rack (3.1.9) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.6.0) lib/puma/configuration.rb:279:in `call'
+puma (6.6.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.0) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.0) lib/puma/server.rb:472:in `process_client'
+puma (6.6.0) lib/puma/server.rb:254:in `block in run'
+puma (6.6.0) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+
+Information for cause: Mysql2::Error (Unknown database 'casino_development'):
+  
+mysql2 (0.5.6) lib/mysql2/client.rb:97:in `connect'
+mysql2 (0.5.6) lib/mysql2/client.rb:97:in `initialize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:25:in `new'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:25:in `new_client'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:138:in `connect'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:147:in `block in reconnect'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql2_adapter.rb:144:in `reconnect'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:669:in `block in reconnect!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:668:in `reconnect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:770:in `block in verify!'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:761:in `verify!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:778:in `connect!'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:984:in `block in with_raw_connection'
+activesupport (8.0.1) lib/active_support/concurrency/null_lock.rb:9:in `synchronize'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_adapter.rb:983:in `with_raw_connection'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract_mysql_adapter.rb:692:in `quote_string'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/quoting.rb:76:in `quote'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:260:in `quoted_scope'
+activerecord (8.0.1) lib/active_record/connection_adapters/mysql/schema_statements.rb:242:in `data_source_sql'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/schema_statements.rb:60:in `table_exists?'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:55:in `block in create_table'
+activerecord (8.0.1) lib/active_record/connection_adapters/abstract/connection_pool.rb:418:in `with_connection'
+activerecord (8.0.1) lib/active_record/schema_migration.rb:54:in `create_table'
+activerecord (8.0.1) lib/active_record/migration.rb:1431:in `initialize'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `new'
+activerecord (8.0.1) lib/active_record/migration.rb:1279:in `open'
+activerecord (8.0.1) lib/active_record/migration.rb:763:in `block (2 levels) in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration/pending_migration_connection.rb:8:in `with_temporary_pool'
+activerecord (8.0.1) lib/active_record/migration.rb:762:in `block in pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `each'
+activerecord (8.0.1) lib/active_record/migration.rb:761:in `pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:740:in `check_pending_migrations'
+activerecord (8.0.1) lib/active_record/migration.rb:660:in `block (2 levels) in call'
+activesupport (8.0.1) lib/active_support/file_update_checker.rb:85:in `execute'
+activerecord (8.0.1) lib/active_record/migration.rb:665:in `block in call'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `synchronize'
+activerecord (8.0.1) lib/active_record/migration.rb:657:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.9) lib/rack/method_override.rb:28:in `call'
+rack (3.1.9) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.9) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.1) lib/rails/engine.rb:535:in `call'
+puma (6.6.0) lib/puma/configuration.rb:279:in `call'
+puma (6.6.0) lib/puma/request.rb:99:in `block in handle_request'
+puma (6.6.0) lib/puma/thread_pool.rb:390:in `with_force_shutdown'
+puma (6.6.0) lib/puma/request.rb:98:in `handle_request'
+puma (6.6.0) lib/puma/server.rb:472:in `process_client'
+puma (6.6.0) lib/puma/server.rb:254:in `block in run'
+puma (6.6.0) lib/puma/thread_pool.rb:167:in `block in spawn_thread'
+  [1m[35m (11.8ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (9.9ms)[0m  [1m[35mCREATE DATABASE `casino_test` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+Started GET "/" for 127.0.0.1 at 2025-02-05 17:02:01 -0600
+  [1m[35m (22.5ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) /*application='Casino'*/[0m
+  [1m[35m (21.6ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) /*application='Casino'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/gobbo/.gem/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/gobbo/.gem/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 2.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2025-02-05 17:04:42 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (2.7ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/gobbo/.gem/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/gobbo/.gem/gems/railties-8.0.1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 1.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[35m (100.9ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (100.7ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (100.7ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (101.5ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+[dotenv] Set [36mCASINO_DB_ROOT_PASSWORD[0m, [36mCASINO_DB_PASSWORD[0m, and [36mDB_DIR[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[35m (41.6ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE DATABASE `casino_test` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+[dotenv] Set [36mCASINO_DB_ROOT_PASSWORD[0m, [36mCASINO_DB_PASSWORD[0m, and [36mDB_DIR[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[35m (18.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY) /*application='Casino'*/[0m
+  [1m[35m (18.1ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) /*application='Casino'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT GET_LOCK('7425966755193533820', 0) /*application='Casino'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1 /*application='Casino'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (5.5ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'development', '2025-02-06 21:30:58.248970', '2025-02-06 21:30:58.248972') /*application='Casino'*/[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[34mSELECT RELEASE_LOCK('7425966755193533820') /*application='Casino'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m
+  [1m[35m (101.3ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+[dotenv] Set [36mCASINO_DB_ROOT_PASSWORD[0m, [36mCASINO_DB_PASSWORD[0m, and [36mDB_DIR[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE DATABASE `casino_development` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE DATABASE `casino_test` DEFAULT CHARACTER SET `utf8mb4` /*application='Casino'*/[0m
+[dotenv] Set [36mCASINO_DB_ROOT_PASSWORD[0m, [36mCASINO_DB_PASSWORD[0m, and [36mDB_DIR[0m
+[dotenv] Loaded [33m.env[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT GET_LOCK('7425966755193533820', 0) /*application='Casino'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (4.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT * FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' ORDER BY `ar_internal_metadata`.`key` ASC LIMIT 1 /*application='Casino'*/[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[34mSELECT RELEASE_LOCK('7425966755193533820') /*application='Casino'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (2.0ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='Casino'*/[0m

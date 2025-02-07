@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:latest
+    volumes:
+      - ${DB_DIR}:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${CASINO_DB_ROOT_PASSWORD}
+      MYSQL_USER: casino
+      MYSQL_PASSWORD: ${CASINO_DB_PASSWORD}
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: "mysql -h 127.0.0.1 -P 3306 -u casino --password=$CASINO_DB_PASSWORD --execute \"show databases;\""
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    image: casino
+    build: .
+    environment:
+      DB_HOST: db
+      # CASINO_DB_ROOT_PASSWORD: ${CASINO_DB_ROOT_PASSWORD}
+      # CASINO_DB_PASSWORD: ${CASINO_DB_PASSWORD}
+    ports:
+      - 80:80
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy

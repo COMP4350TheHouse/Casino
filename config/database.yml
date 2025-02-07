@@ -14,8 +14,9 @@ default: &default
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:
-  socket: /var/run/mysqld/mysqld.sock
+  password: <%= ENV["CASINO_DB_ROOT_PASSWORD"] %>
+  host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
+  port: 3306
 
 development:
   <<: *default
@@ -53,7 +54,7 @@ production:
     <<: *default
     database: casino_production
     username: casino
-    password: <%= ENV["CASINO_DATABASE_PASSWORD"] %>
+    password: <%= ENV["CASINO_DB_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: casino_production_cache
