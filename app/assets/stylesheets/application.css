@@ -27,10 +27,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr auto;
   grid-template-rows: auto 1fr;
-  grid-template-areas: 
+  grid-template-areas:
         "header header header"
         "body body chat";
-  
+
   margin: 0%;
   padding: 0%;
   gap: 0%;
@@ -52,12 +52,16 @@
 #main-chat {
   grid-area: chat;
   width: 0;
+  overflow: hidden;
   transition: width 0.5s ease;
   /* TODO this shouldn't have a background color */
   background-color: rgb(255,100,100);
   margin-right: 0%;
   padding-right: 0%;
   justify-self: right;
+}
+#main-chat .chat {
+  visibility: hidden;
 }
 #main-chat.expand {
   width: 10em;

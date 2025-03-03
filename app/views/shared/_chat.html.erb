@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'chat.css', media: 'all' %>
+
+<div class="chat-div">
+    <%= form_with(url: chat_send_url, method: :post, remote: true, data: {turbo: true}, html: { id: 'chat-form' }) do |form| %>
+    <div class="chat-header">
+        <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
+    </div>
+    <%= channels.each_with_index do |channel, index| %>
+        <div class="chat-text" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
+    <% end %>
+    <div class="chat-footer">
+        <%= form.text_field :input_string, maxlength: 30, id:'chat-input', class: "chat-input" %>
+        <%= form.submit "Send", id:'send-button', class: "send-button" %>
+    </div>
+    <% end %>
+</div>
+
+
+<script>
+// Clears the text box
+document.getElementById('chat-form').addEventListener('submit', function() {
+  setTimeout(function() {
+    document.getElementById('chat-input').value = '';
+  }, 20); // Just has to delay a little bit
+});
+
+// Switches channels
+document.getElementById('channel-select').addEventListener('change', function() {
+  text = document.getElementById('channel-select').value;
+
+  var array = <%= raw channels.to_json %>;
+
+  array.forEach(function (channel, index) {
+    document.getElementById(channel).style.visibility = "hidden";
+  });
+
+  document.getElementById(text).style.visibility = "visible";
+});
+</script>

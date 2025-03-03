@@ -29,7 +29,16 @@
         <%= yield %>
       </div>
       <div id = "main-chat">
-        <%# TODO add chat partial here %>
+          <!-- TODO! Move this into the partial -->
+          <% if on_lobby_page? %>
+              <%= render 'shared/chat', channels: ['Global'], class: "chat"%>
+          <% end %>
+          <% if on_horse_racing? %>
+              <%= render 'shared/chat', channels: ['Horse Race', 'Global'], class: "chat"%>
+          <% end %>
+          <% if on_roulette? %>
+              <%= render 'shared/chat', channels: ['Roulette', 'Global'], class: "chat"%>
+          <% end %>
       </div>
   </body>
 </html>
