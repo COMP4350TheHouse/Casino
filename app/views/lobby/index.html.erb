@@ -21,7 +21,7 @@
         <%= button_to "Horse Racing", horse_racing_lobby_path, method: :post, remote: true %>
     </div>
     <div class="lobby-game" id="roulette">
-        <button class="coming-soon">Roulette</button>
+        <%= button_to "Roulette", roulette_lobby_path, method: :post, data: { turbo: false } %>
     </div>
     <div class="lobby-game" id="slots">
         <button class="coming-soon">Slots</button>

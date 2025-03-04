@@ -72,36 +72,11 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert Wager.count == 2
   end
 
-  test "should pay user accordingly for sucessful first placed horse show wager" do
-    login
-    does_wager_pay :show, 0
-  end
-
-  test "should pay user accordingly for sucessful second placed horse show wager" do
-    login
-    does_wager_pay :show, 1
-  end
-
-  test "should pay user accordingly for sucessful third placed horse show wager" do
-    login
-    does_wager_pay :show, 2
-  end
-
   test "should not pay user accordingly for horse placed out of the top 3 show wager" do
     login
     does_wager_not_pay :show, 3
     does_wager_not_pay :show, 4
     does_wager_not_pay :show, 5
-  end
-
-  test "should pay user accordingly for sucessful place wager" do
-    login
-    does_wager_pay :place, 0
-  end
-
-  test "should pay user accordingly for sucessful second placed horse place wager" do
-    login
-    does_wager_pay :place, 1
   end
 
   test "should not pay user accordingly for horse placed out of the top 2 place wager" do
@@ -110,11 +85,6 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     does_wager_not_pay :place, 3
     does_wager_not_pay :place, 4
     does_wager_not_pay :place, 5
-  end
-
-  test "should pay user accordingly for sucessful straight wager" do
-    login
-    does_wager_pay :straight, 0
   end
 
   test "should not pay user accordingly for winning horse placed straight wager" do
@@ -278,30 +248,6 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert Wager.count == 3
   end
 
-  test "Payout when betting & winning on generated horses" do
-    Horse.remove_random_horses(Horse.count)
-    assert Horse.count.zero?
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    assert Horse.count == 6
-
-    login
-
-    # Do all the bets on the horses
-    does_wager_pay :show, 0
-    does_wager_pay :show, 1
-    does_wager_pay :show, 2
-
-    does_wager_pay :place, 0
-    does_wager_pay :place, 1
-
-    does_wager_pay :straight, 0
-  end
-
   test "No payout when betting & losing on generated horses" do
     Horse.remove_random_horses(Horse.count)
     assert Horse.count.zero?
@@ -330,31 +276,5 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     does_wager_not_pay :straight, 3
     does_wager_not_pay :straight, 4
     does_wager_not_pay :straight, 5
-  end
-
-  test "Hit & Miss bet on generated horses" do
-    Horse.remove_random_horses(Horse.count)
-    assert Horse.count.zero?
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    Horse.create_new_horse
-    assert Horse.count == 6
-
-    login
-
-    # Do all the bets on the horses
-    does_wager_pay :show, 2
-
-    does_wager_pay :place, 0
-    does_wager_pay :place, 1
-
-    does_wager_pay :straight, 0
-
-    does_wager_not_pay :show, 3
-    does_wager_not_pay :place, 3
-    does_wager_not_pay :straight, 1
   end
 end

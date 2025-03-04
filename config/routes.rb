@@ -20,11 +20,18 @@ Rails.application.routes.draw do
   get "/lobby", to: "lobby#index"
   post "/lobby/logout", to: "lobby#logout", as: :logout_lobby
   post "/lobby/horse_racing", to: "lobby#horse_racing", as: :horse_racing_lobby
+  post "/lobby/roulette", to: "lobby#roulette", as: :roulette_lobby
 
   get "horse_race/race"
   get "horse_race/betting"
 
+  get "roulette/roulette_board"
+
   post 'horse_race/debug_skip_to_race', to: 'horse_race#debug_skip_to_race', as: 'debug_skip_to_race'
   post 'horse_race/submit_bet', to: 'horse_race#submit_bet', as: 'submit_bet'
   post 'horse_race/resolve_race', to: 'horse_race#resolve_race', as: 'resolve_race'
+  post 'roulette/submit_roulette_bet', to: 'roulette#submit_roulette_bet', as: 'submit_roulette_bet'
+  post 'roulette/payout_bets', to: 'roulette#payout_bets', as: 'payout_bets'
+  post 'roulette/placed_chips_request', to: 'roulette#placed_chips_request', as: 'placed_chips_request'
+  get  'roulette/winning_num_request', to: 'roulette#winning_num_request', as: 'winning_num_request'
 end

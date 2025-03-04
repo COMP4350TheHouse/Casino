@@ -15,4 +15,10 @@ class LobbyController < ApplicationController
     flash[:notice] = "Bet on zoolander, he's my favourite!"
     redirect_to horse_race_betting_path
   end
+
+  # When the roulette button is pressed, the user is redirected to the roulette board page
+  def roulette
+    flash[:notice] = "Put it all on red!"
+    redirect_to roulette_roulette_board_path
+  end
 end

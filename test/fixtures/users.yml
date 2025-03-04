@@ -9,3 +9,9 @@ two:
   email_address: two@example.com
   username: two2
   password_digest: <%= password_digest %>
+
+three:
+  email_address: three@example.com
+  username: three3
+  password_digest: <%= password_digest %>
+  balance: 500
