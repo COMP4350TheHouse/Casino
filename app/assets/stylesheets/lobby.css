@@ -2,11 +2,11 @@ button:hover{
    transform: scale(1.05);
 }
 
-h1, h2 {
+#lobby-body h1, h2 {
     color: white;
 }
 
-p {
+#lobby-body p {
     color: white;
 }
 
