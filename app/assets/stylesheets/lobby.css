@@ -10,25 +10,14 @@
     color: white;
 }
 
-#lobby-body {
-    /*Set Background Image*/
-    background-image: url('carpet.jpg');
-    background-repeat: repeat;
-    background-attachment: fixed;
-    background-size: auto;
 
+#lobby-body {
     /*Set up Grid layout*/
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1.5fr 1fr 1.5fr;
+    grid-template-rows: repeat(1, 1fr);
     column-gap: 0;
     row-gap: 0;
-    grid-template-areas: 
-    "a b c"
-    "d e f"
-    "g h i"
-    "j k l"
-    "m n o";
     
     margin: 0%;
     min-block-size: 100dvh ;
@@ -36,123 +25,98 @@
 
 #carpet-div {
     background-image: url('RedVelvetCarpet.jpg');
-
     /* Set the Carpet to cover the whole middle column*/
-    grid-row-start: b;
-    grid-column-start: b;
-    grid-row-end: n;
-    grid-column-end: n;
+    grid-row: 1/4; /* Start at row line 1 end at row line 4 */
+    grid-column: 2/2;
     /*Misc Formatting*/
     margin-top: 0%;
-
-}
-
-.lobby-header {
-    grid-area: b;
-    padding: 1.25rem;
-    z-index: 1;
-    justify-self: center;
-    align-self: start;
-}
-
-.lobby-account-info {
-    grid-area: a;
-    justify-items: center;
-    align-items: center;
-    padding: 5px, 5px;
-}
-
-.lobby-account-info button{
-    color : #444;
-    border-radius: 5rem;
-    line-height: 1.5rem;
-    transition: all 0.25s ease;
-    width: 4rem;
-    height: 2rem;
 }
 
 .lobby-main {
     padding: 1.25rem;
     position: relative;
-    align-self: center;
-    grid-row-start: b;
-    grid-column-start: b; 
-    grid-row-end: e;
-    grid-column-end: e; 
-}
-
-#main-text {
+    align-self: top;
+    grid-row: 1/3;
+    grid-column: 2/2;
     max-width: fit-content;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-
-.lobby-game button {
-    color : #444;
-    border-radius: 8rem;
-    line-height: 1.5rem;
-    font-size: large;
-    transition: all 0.25s ease;
-    width: 10rem;
-    height: 5rem;
-    border: none;
-    display: inline-grid;
-    margin-top: 1rem;
-    justify-items: center;
-}
-.coming-soon {
-    cursor: not-allowed;
-    background-image: url("UnderConstructionTape.png");
-    background-size: 105%;
-    justify-self: center;
-    align-self: center;
-    background-color: grey;
-}
-.coming-soon:hover{
-    transform: none;
-}
-
+/* Specific Game links: */
 #horse-racing {
-    grid-area: f;
+    grid-row: 1/1;
+    grid-column: 3/3;
     justify-self: center;
     align-self: center;
+    
+}
+#horse-racing h2 {
+    color: #2d2d2d;
+    transition: color 0.25s ease-in;
 }
 #horse-racing button {
-    animation: animatedBackground 1s linear infinite paused, animatedText 1s ease-in-out infinite alternate paused;
+    display: inline-grid;
+    cursor: pointer;
+    font-size: large;
+    justify-items: center;
+    border: none;
+    border-radius: 8rem;
+    line-height: 1.5rem;
+    width: 23rem;
+    height: 15rem;
+    margin-top: 1rem;
+    transition: all 0.25s ease;
+    animation: horse-racing-background-animation 1s linear infinite paused, 
+                horse-racing-animated-text 1s ease-in-out infinite alternate paused;
     background-repeat: repeat-x;
-    background-image: url("horse1.png");
-    background-size: 50%;
+    background-image: url("horse1.png"), url("track.png");
+    background-size: 50%, 50%;
 }
 #horse-racing button:hover{
     animation-play-state: running;
 }
+#horse-racing button:hover h2{
+    color: var(--dark-gold);
+}
 
 #roulette {
-    grid-area: d;
+    grid-row: 1/1;
+    grid-column: 1/1;
     justify-self: center;
     align-self: center;
-}
-#slots {
-    grid-area: i;
-    justify-self: center;
-    align-self: center;
+    transition: all 0.25s ease;
 }
 
-@keyframes animatedText {
+#roulette:hover {
+    transform: scale(1.05);
+}
+
+#blackjack {
+    grid-row: 2/2;
+    grid-column: 1/1;
+    justify-self: center;
+    align-self: center;
+    width: max-content;
+    animation-play-state: paused;
+    text-align: center;
+}
+
+@keyframes horse-racing-animated-text {
     from {
         font-size: 100%;
     }
-
     to {
         font-size: 110%;
     }
 }
-@keyframes animatedBackground {
+
+@keyframes horse-racing-background-animation {
     from {
-      background-position: -20px 90%;
+      /* The first arguments are for the horses image, and the second for the track*/
+      background-position: 0% 90%, 100%; 
     }
     to {
-      background-position: 270% 90%;
+      background-position: 200% 90%, 0%;
     }
 }
