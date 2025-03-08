@@ -1,4 +1,4 @@
-button:hover{
+#lobby-body button:hover{
    transform: scale(1.05);
 }
 

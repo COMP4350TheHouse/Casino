@@ -1,0 +1,42 @@
+/* The div that controls the whole partial */
+.account-menu{
+    position: relative;
+    display: inline-block;
+}
+/* The hidden menu */
+.account-menu-dropdown {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    overflow: auto;
+    background-color: rgb(78, 78, 78);
+    opacity: 90%;
+    height: 0%; /*This is what gets changed to make the menu visible*/
+}
+
+/* Show the dropdown menu on hover */
+.account-icon-div:hover + .account-menu-dropdown, .account-menu-dropdown:hover{
+    height: fit-content;
+}
+
+/* Warning: These variables are defined in header.css */
+.account-menu:hover .account-icon {
+    fill: var(--dark-gold);
+}
+.account-icon:hover {
+    fill: var(--dark-gold);
+}
+
+.account-icon-div {
+    max-width: fit-content;
+    max-height: fit-content;
+}
+
+.account-icon {
+    display: flex;
+    fill: white;
+    width: 35px;
+    height: 35px;
+    border: none;
+    transition: fill ease 0.3s;
+}
