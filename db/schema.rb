@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_07_172104) do
   create_table "horses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.float "speed"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "show_odds"
+    t.float "position"
   end
 
   create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

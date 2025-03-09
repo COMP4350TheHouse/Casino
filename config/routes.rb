@@ -21,10 +21,12 @@ Rails.application.routes.draw do
   post "/lobby/logout", to: "lobby#logout", as: :logout_lobby
   post "/lobby/horse_racing", to: "lobby#horse_racing", as: :horse_racing_lobby
 
-  get "horse_race/race"
-  get "horse_race/betting"
+  get "horse_race/index", to: "horse_race#index"
+  # get "horse_race/race"
+  # get "horse_race/betting"
 
-  post 'horse_race/debug_skip_to_race', to: 'horse_race#debug_skip_to_race', as: 'debug_skip_to_race'
+  # post 'horse_race/debug_skip_to_race', to: 'horse_race#debug_skip_to_race', as: 'debug_skip_to_race'
+  post 'horse_race/restart_race', to: 'horse_race#restart_race', as: 'restart_race'
   post 'horse_race/submit_bet', to: 'horse_race#submit_bet', as: 'submit_bet'
-  post 'horse_race/resolve_race', to: 'horse_race#resolve_race', as: 'resolve_race'
+  # post 'horse_race/resolve_race', to: 'horse_race#resolve_race', as: 'resolve_race'
 end
