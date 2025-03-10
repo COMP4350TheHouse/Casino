@@ -1,0 +1,88 @@
+/* This class has nothing to do with blackjack, or cards from a deck or anything,
+   it's the page layout type of card. */
+
+.card-layout {
+    margin: 2rem auto;
+    max-width: 25rem;
+    padding: 2rem;
+
+    border-radius: 30px;
+    border: 4px solid #480000;
+
+    background: #640000;
+    color: white;
+}
+
+.card-layout h1 {
+    text-align: center;
+    color: goldenrod;
+}
+
+.card-layout .notice,
+.card-layout .alert {
+    margin: 0.5rem 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
+
+    border-radius: 8px;
+    border: 1px solid #8d3939;
+    
+    background-color: #480000;
+    color: #3dc73d;
+}
+
+.card-layout .alert {
+    color: #ff2c2c;
+}
+
+.card-layout .form-section {
+    margin: 1rem 0;
+}
+
+.card-layout input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+
+    border-radius: 4px;
+    border: 1px solid #8d3939;
+
+    background-color: #360000;
+    color: white;
+}
+
+.card-layout input[type=submit] {
+    border: none;
+
+    background-color: goldenrod;
+    color: black;
+}
+
+.card-layout input[type=submit]:hover {
+    background-color: #e3ad28;
+}
+
+.card-layout input[type=submit]:active {
+    background-color: #eab530;
+}
+
+.card-layout .form-input-description {
+    margin: 0;
+    margin-top: 0.25rem;
+    font-size: smaller;
+    color: lightgray;
+}
+
+.card-layout a:link {
+    color: #4493f8;
+}
+
+.card-layout a:visited {
+    color: #445ff8;
+}
+
+.card-layout .info-table {
+    width: 100%;
+    font-size: larger;
+}
