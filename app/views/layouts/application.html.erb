@@ -19,11 +19,18 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag 'horse_betting.css', media: 'all' %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+    <body id="main-body-tag">
+      <div class="main-header">
+        <%= render 'shared/header'%>
+      </div>
+      <div class = "main-content">
+        <%= yield %>
+      </div>
+      <div id = "main-chat">
+        <%# TODO add chat partial here %>
+      </div>
   </body>
 </html>

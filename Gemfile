@@ -17,6 +17,9 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Inline svg filetypes in erb file types
+gem 'inline_svg'
+
 # Email support (fixes docker build)
 gem "net-smtp", "~> 0.5.0"
 
