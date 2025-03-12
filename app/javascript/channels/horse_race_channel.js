@@ -18,7 +18,18 @@ consumer.subscriptions.create("HorseRaceChannel", {
       // Move Horse
       horseImg.style.left = Math.min(100, horse.position) + "%";
       // Stop Horse if its done
-      horseImg.style.animationPlayState = horse.position >= 100 ? "paused" : "running";
+      // NEEDS TO BE CHANGED AFTER 3S
+      //
+
+      if (horse.position >= 100) {
+          setTimeout(function() {
+            horseImg.style.animationPlayState = "paused";
+
+            // Add wager payout here...
+          }, 3000);
+      } else {
+        horseImg.style.animationPlayState = "running";
+      }
 
       //let horseCardDiv = document.getElementById("horse" + horse.id + "Card");
       //horseCardDiv = horse.bet_card;

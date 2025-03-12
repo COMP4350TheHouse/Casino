@@ -24,6 +24,14 @@
   @keyframes parallaxImage {
       100% {transform: translateX(-400px);}
   }
+
+  .horse_bet_grid {
+
+    display: grid;
+    /* flex-direction: row; */
+    align-items: center;
+    grid-template-columns: repeat(4, 1fr);
+  }
 </style>
 
 
@@ -35,7 +43,7 @@
         <% end %>
     </div>
 
-    <div style="display: flex; flex-direction: row; align-items: center;">
+    <div class="horse_bet_grid" style="">
         <% Horse.all.each do |horse| %>
             <%= render 'shared/horse_race/bet/card', horse: horse %>
         <% end %>

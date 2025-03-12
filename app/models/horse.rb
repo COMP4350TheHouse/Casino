@@ -6,7 +6,7 @@ class Horse < ApplicationRecord
   IMAGES       = ['horse1.png'].freeze
   SPEEDS       = (5..10).freeze
   TIMINGS      = %w[linear ease ease-in ease-out ease-in-out].freeze
-  ODDS         = (1..100).freeze
+  ODDS         = (1..3).freeze
 
   def self.random # rubocop:disable Metrics/AbcSize
     name          = NAMES.sample      # Random name for horse

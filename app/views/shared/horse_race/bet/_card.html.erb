@@ -1,4 +1,6 @@
-<div id="horse<%= horse.id =%>Card", style="display: flex; flex-direction: column; align-items: center;">
+<%= stylesheet_link_tag 'horse_betting.css', media: 'all' %>
+
+<div class="horse_card" id="horse<%= horse.id =%>Card">
     <b><%= horse.name %></b>
     <%= image_tag horse.image, style: "width: 100px; height: 100px;"%>
     <%= render 'shared/horse_race/bet/form', horse: horse, kind: :straight %>
