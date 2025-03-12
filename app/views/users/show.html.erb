@@ -1,6 +1,30 @@
-<h1>Account information</h1>
+<div class="card-layout">
+  <h1>Account information</h1>
 
-Username: <%= @user.username %><br/>
-Email address: <%= @user.email_address %><br/>
-
-Balance: $<%= number_with_precision(@user.balance, precision: 2, delimiter: ",") %>
+  <table class="info-table">
+    <tr>
+      <td>
+        <label>Username:</label>
+      </td>
+      <td>
+        <%= @user.username %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Email address:</label>
+      </td>
+      <td>
+        <%= @user.email_address %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Balance:</label>
+      </td>
+      <td>
+        $<%= number_with_precision(@user.balance, precision: 2, delimiter: ",") %>
+      </td>
+    </tr>
+  </table>
+</div>
