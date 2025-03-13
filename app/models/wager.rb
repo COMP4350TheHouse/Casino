@@ -50,9 +50,9 @@ class Wager < ApplicationRecord
 
   def payout_message
     {
-      horse_name: Horse.find(horse_id).name,
-      payout: self.payout,
-      bet_type: kind.to_sym,
+      horse_name: "Test",
+      payout: "Test",
+      bet_type: "Test",
     }
   end
 end
