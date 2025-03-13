@@ -1,10 +1,10 @@
 <style>
-  #horse {
+  .race_horse {
       width: 100px;
       height: 100px;
       position: absolute;
       margin-top: 40px;
-      animation: jostleImage ease-in-out 0.1s infinite alternate;
+      animation: jostleImage ease-in-out 0.1s infinite alternate paused;
       transition: left 3s linear;
   }
 
@@ -14,9 +14,8 @@
   }
 </style>
 
-<div id="horse<%= horse.id %>">
-    <div id="horse", style="top: <%= track_index * 15%>px; left: <%= horse.position %>%;">
-        <b><%= horse.name.capitalize %> <b>
-        <%= image_tag horse.image, width: 100, height: 100%>
-    </div>
+
+<div class="race_horse" id="race_horse", style="top: <%= track_index * 15%>px; left: <%= horse.position %>%;">
+    <b><%= horse.name.capitalize %> <b>
+    <%= image_tag horse.image, width: 100, height: 100%>
 </div>

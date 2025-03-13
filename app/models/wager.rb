@@ -41,5 +41,18 @@ class Wager < ApplicationRecord
     user = User.find(user_id)
     user.balance += payout
     user.save
+
+    # Send down ActionCable
+    ActionCable.server.broadcast("horse_wager_channel", { message: self.payout_message })
+    puts "Paying out!!"
+  end
+
+
+  def payout_message
+    {
+      horse_name: Horse.find(horse_id).name,
+      payout: self.payout,
+      bet_type: kind.to_sym,
+    }
   end
 end

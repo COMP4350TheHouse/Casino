@@ -2,7 +2,7 @@
 class HorseRaceController < ApplicationController
   def initialize
     super
-    @debug = true
+    @debug = false
     @freeze_bets = 70 # The furthest horse is 70% of the way across the screen we can no longer accept bets
   end
 

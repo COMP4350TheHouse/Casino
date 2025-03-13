@@ -6,16 +6,28 @@ class Horse < ApplicationRecord
   IMAGES       = ['horse1.png'].freeze
   SPEEDS       = (5..10).freeze
   TIMINGS      = %w[linear ease ease-in ease-out ease-in-out].freeze
-  ODDS         = (1..3).freeze
+  ODDS         = (3..6).freeze
 
   def self.random # rubocop:disable Metrics/AbcSize
     name          = NAMES.sample      # Random name for horse
     image         = IMAGES.sample     # Random image of the horse
     speed         = rand(SPEEDS) + rand # Random speed, this tells us if horse is gonna win the race
     timing        = TIMINGS.sample # Random timing so horses move in interesting ways
-    show_odds     = rand(ODDS) + rand # Random odds for payout if horse gets 1st, 2nd or 3rd
-    place_odds    = show_odds * 2 + rand  # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
-    straight_odds = place_odds * 2 + rand # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
+    straight_odds = rand(ODDS) + rand # Random odds for payout if horse gets 1st, 2nd or 3rd
+    place_odds    = straight_odds / 2 + rand  # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
+    show_odds     = straight_odds / 3 + rand # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
+
+    # Round them out to be whole numbers
+    straight_odds = straight_odds.round()
+    place_odds = place_odds.round()
+    show_odds = show_odds.round()
+
+    if show_odds == 1
+      show_odds = 2
+    end
+    if place_odds == 1
+      place_odds = 2
+    end
 
     Horse.new(name: name, image: image, speed: speed, timing: timing, show_odds: show_odds, place_odds: place_odds, straight_odds: straight_odds, position: 0)
   end
@@ -70,6 +82,7 @@ class Horse < ApplicationRecord
       save
     # Race has finished, pay winners
     else
+      position = 100 # Caps position to 100
       placing = place
 
       wagers = Wager.all.where(horse_id: id) # Wagers on me (me being the horse)
@@ -89,7 +102,7 @@ class Horse < ApplicationRecord
     Horse.all.map do |horse|
       { id: horse.id,
         position: horse.position }
-      # bet_card: render('shared/horse_race/bet/card', horse: horse) }
     end
   end
+
 end

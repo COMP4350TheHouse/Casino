@@ -1,21 +1,26 @@
 <style>
-
-   body {
+  body {
     cursor: url('<%= asset_path "horse1.png" %>'), auto;
-   }
+  }
 
-  .background {
-      width: 100vw;
+  .balance {
+      text-align: center;
+  }
+
+  .race_background {
+      width: 100%;
   }
 
   .race_image {
       position: relative;
       background-image: url('<%= asset_path "track.png" %>');
       animation-name: parallaxImage;
-      animation-delay: 0s;
-      animation-duration: 2s;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-play-state: paused;
+
       left: 0px;
       width: 200%;
       height: 200px;
@@ -25,33 +30,84 @@
       100% {transform: translateX(-400px);}
   }
 
-  .horse_bet_grid {
 
-    display: grid;
-    /* flex-direction: row; */
-    align-items: center;
-    grid-template-columns: repeat(4, 1fr);
+
+  table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
   }
+
+  caption {
+    caption-side: bottom;
+    padding: 10px;
+    font-weight: bold;
+  }
+
+  thead,
+  tfoot {
+    background-color: rgb(228 240 245);
+  }
+
+  th,
+  td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+  }
+
+  td:last-of-type {
+    text-align: center;
+  }
+
+  tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+  }
+
+  tfoot th {
+    text-align: right;
+  }
+
+  tfoot td {
+    font-weight: bold;
+  }
+
 </style>
 
 
 <div>
-    <div class="background">
-        <div class="race_image"></div>
+    <div class="race_background">
+        <div id="race_track" class="race_image"></div>
         <% Horse.all.each_with_index do |horse, index| %>
             <%= render 'shared/horse_race/horse', horse: horse, track_index: index %>
         <% end %>
     </div>
 
-    <div class="horse_bet_grid" style="">
+    <a class="balance">Balance: $<%= Current.session.user.balance %></a>
+
+    <div id="main_betting_menu" class="horse_betting_menu">
         <% Horse.all.each do |horse| %>
             <%= render 'shared/horse_race/bet/card', horse: horse %>
         <% end %>
+    </div>
+
+    <div class="horse_wager_payout_div">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Horse</th>
+                    <th scope="col">Bet Type</th>
+                    <th scope="col">Payout</th>
+                </tr>
+            </thead>
+            <tbody id="horse_wager_payout_body">
+            </tbody>
+        </table>
     </div>
 
     <% if @debug %>
         <%= button_to "Restart Race", restart_race_path, method: :post %>
     <% end %>
 
-    <a id="balance">$<%= Current.session.user.balance %></a>
 </div>

@@ -1,9 +1,15 @@
 <%= stylesheet_link_tag 'horse_betting.css', media: 'all' %>
 
-<div class="horse_card" id="horse<%= horse.id =%>Card">
-    <b><%= horse.name %></b>
-    <%= image_tag horse.image, style: "width: 100px; height: 100px;"%>
-    <%= render 'shared/horse_race/bet/form', horse: horse, kind: :straight %>
-    <%= render 'shared/horse_race/bet/form', horse: horse, kind: :place %>
-    <%= render 'shared/horse_race/bet/form', horse: horse, kind: :show %>
+<div class="horse_container" id="horse<%= horse.id =%>Card">
+    <div class="horse_name_div"><text class="horse_name"><%= horse.name %></text></div>
+    <%= image_tag horse.image, :class => "horse_img" %>
+    <div class="place_div">
+        <%= render "shared/horse_race/bet/form", horse: horse, kind: :place %>
+    </div>
+    <div class="straight_div">
+        <%= render "shared/horse_race/bet/form", horse: horse, kind: :straight %>
+    </div>
+    <div class="show_div">
+        <%= render "shared/horse_race/bet/form", horse: horse, kind: :show %>
+    </div>
 </div>
