@@ -6,7 +6,7 @@
     <h1 class="header-title">Casino</h1>
     <div class = "header-navigation">
       <%= link_to "Lobby", root_path, class: ("active" if on_lobby_page?)%>
-      <%= link_to "Horse Racing", horse_race_betting_path, class: ("active" if on_horse_racing?) %>
+      <%= link_to "Horse Racing", horse_race_index_path, class: ("active" if on_horse_racing?) %>
     </div>
     <div  onclick = exposeChat() class="header-chat-div">
       <%= inline_svg_tag "chat-icon.svg", alt: "chat icon", class: "chat-icon"%>

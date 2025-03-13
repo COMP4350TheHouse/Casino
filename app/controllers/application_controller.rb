@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   end
 
   def on_horse_racing?
-    @current_path == horse_race_betting_path || @current_path == horse_race_race_path
+    @current_path == horse_race_index_path
   end
 end
