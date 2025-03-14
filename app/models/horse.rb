@@ -4,9 +4,11 @@ class Horse < ApplicationRecord
 
   NAMES        = (1..100).map { |x| "MyHorse#{x}" }
   IMAGES       = ['horse1.png'].freeze
-  SPEEDS       = (5..10).freeze
+  SPEEDS       = (0..8).freeze
   TIMINGS      = %w[linear ease ease-in ease-out ease-in-out].freeze
   ODDS         = (3..6).freeze
+
+  BASE_SPEED   = 5
 
   def self.random # rubocop:disable Metrics/AbcSize
     name          = NAMES.sample      # Random name for horse
@@ -14,20 +16,16 @@ class Horse < ApplicationRecord
     speed         = rand(SPEEDS) + rand # Random speed, this tells us if horse is gonna win the race
     timing        = TIMINGS.sample # Random timing so horses move in interesting ways
     straight_odds = rand(ODDS) + rand # Random odds for payout if horse gets 1st, 2nd or 3rd
-    place_odds    = straight_odds / 2 + rand  # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
+    place_odds    = straight_odds / 2 + rand # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
     show_odds     = straight_odds / 3 + rand # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
 
     # Round them out to be whole numbers
-    straight_odds = straight_odds.round()
-    place_odds = place_odds.round()
-    show_odds = show_odds.round()
+    straight_odds = straight_odds.round
+    place_odds = place_odds.round
+    show_odds = show_odds.round
 
-    if show_odds == 1
-      show_odds = 2
-    end
-    if place_odds == 1
-      place_odds = 2
-    end
+    show_odds = 2 if show_odds == 1
+    place_odds = 2 if place_odds == 1
 
     Horse.new(name: name, image: image, speed: speed, timing: timing, show_odds: show_odds, place_odds: place_odds, straight_odds: straight_odds, position: 0)
   end
@@ -77,22 +75,25 @@ class Horse < ApplicationRecord
 
   def tick
     # Race hasn't finished, continue moving
-    if position < 100
-      speed_change = (0..8)
-      self.position += 5 + speed_change.to_a.sample
-      save
-    # Race has finished, pay winners
-    else
-      placing = place
-      position = 1000 # Once a horse is finished put it so far forward it can't be passed
-      save
+    move_forward if position < 100
+    payout_wagers if position > 100
+  end
 
-      wagers = Wager.all.where(horse_id: id) # Wagers on me (me being the horse)
-      winning_wagers = wagers.select { |wager| wager.hits?(placing) } # Wagers that hit based on wager kind and actual horse placing
-      winning_wagers.each(&:fufill) # Pay the money
+  def move_forward
+    self.position += BASE_SPEED + SPEEDS.to_a.sample
+    save
+  end
 
-      wagers.destroy_all
-    end
+  def payout_wagers
+    placing = place
+    self.position = 1000 # Once a horse is finished put it so far forward it can't be passed
+    save
+
+    wagers = Wager.all.where(horse_id: id) # Wagers on me (me being the horse)
+    winning_wagers = wagers.select { |wager| wager.hits?(placing) } # Wagers that hit based on wager kind and actual horse placing
+    winning_wagers.each(&:fufill) # Pay the money
+
+    wagers.destroy_all
   end
 
   # Find out what place we're in atm
@@ -106,5 +107,4 @@ class Horse < ApplicationRecord
         position: horse.position }
     end
   end
-
 end

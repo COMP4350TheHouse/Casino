@@ -25,7 +25,7 @@ class Wager < ApplicationRecord
     type = {
       straight: "Straight",
       place: "Place",
-      show: "Show",
+      show: "Show"
     }
 
     type[kind.to_sym]
@@ -53,16 +53,15 @@ class Wager < ApplicationRecord
     user.save
 
     # Send down ActionCable
-    ActionCable.server.broadcast("horse_wager_channel", { message: self.payout_message })
+    ActionCable.server.broadcast("horse_wager_channel", { message: payout_message })
     puts "Paying out!!"
   end
-
 
   def payout_message
     {
       horse_name: Horse.find(horse_id).name,
       payout: payout,
-      bet_type: Wager.type_text(kind),
+      bet_type: Wager.type_text(kind)
     }
   end
 end
