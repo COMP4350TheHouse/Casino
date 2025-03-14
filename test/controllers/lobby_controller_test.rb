@@ -4,7 +4,7 @@ class LobbyControllerTest < ActionDispatch::IntegrationTest
   # Test for the coming soon buttons/tables (roulette & slots)
   test "should show coming soon/under construction tables" do
     get lobby_path
-    assert_select "button.coming-soon", count: 2
+    assert_select "button.coming-soon", count: 1
   end
 
   # Verify that the horse racing table exists
