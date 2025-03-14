@@ -3,7 +3,17 @@
     cursor: url('<%= asset_path "horse1.png" %>'), auto;
   }
 
+  .balance_div {
+      margin: 5px auto;
+      text-align: center;
+      padding: 5px;
+      width: 10em;
+      outline: 2px;
+      border-radius: 10px;;
+      background-color: white;
+  }
   .balance {
+      margin: auto;
       text-align: center;
   }
 
@@ -32,7 +42,7 @@
 
 
 
-  table {
+  .horse_wager_table {
     border-collapse: collapse;
     border: 2px solid rgb(140 140 140);
     font-family: sans-serif;
@@ -67,6 +77,10 @@
     background-color: rgb(237 238 242);
   }
 
+  tbody > tr:nth-of-type(odd) {
+    background-color: rgb(120 150 120);
+  }
+
   tfoot th {
     text-align: right;
   }
@@ -85,41 +99,50 @@
         <% end %>
     </div>
 
-    <a class="balance">Balance: $<%= Current.session.user.balance %></a>
+    <div class="balance_div"><a class="balance">Balance: $<%= Current.session.user.balance %></a></div>
 
-    <div id="main_betting_menu" class="horse_betting_menu">
-        <% Horse.all.each do |horse| %>
-            <%= render 'shared/horse_race/bet/card', horse: horse %>
-        <% end %>
-    </div>
+    <div class="horse_bet_super_grid">
+        <div id="horse_wager_placed_div" class="horse_wager_placed_div">
+            <table class="horse_wager_table">
+                <thead>
+                    <tr>
+                        <th scope="col">Horse</th>
+                        <th scope="col">Bet Type</th>
+                        <th scope="col">Bet Amount</th>
+                        <th scope="col">Ratio</th>
+                    </tr>
+                </thead>
+                <tbody id="horse_wager_placed_body">
+                </tbody>
+            </table>
+        </div>
+        <div class="center_grid_item_div">
+            <div id="horse_betting_div">
+                <div id="main_betting_menu" class="horse_betting_menu">
+                    <% Horse.all.each do |horse| %>
+                        <%= render 'shared/horse_race/bet/card', horse: horse %>
+                    <% end %>
+                </div>
+            </div>
+            <div id="horse_closed_betting_div">
+            </div>
+        </div>
 
-    <div id="horse_wager_payout_div" class="horse_wager_payout_div">
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Horse</th>
-                    <th scope="col">Bet Type</th>
-                    <th scope="col">Payout</th>
-                </tr>
-            </thead>
-            <tbody id="horse_wager_payout_body">
-            </tbody>
-        </table>
-    </div>
+        <div id="horse_wager_payout_div" class="horse_wager_payout_div">
+            <table class="horse_wager_table">
+                <thead>
+                    <tr>
+                        <th scope="col">Horse</th>
+                        <th scope="col">Bet Type</th>
+                        <th scope="col">Payout</th>
+                    </tr>
+                </thead>
+                <tbody id="horse_wager_payout_body">
+                </tbody>
+            </table>
+        </div>
 
-    <div id="horse_wager_placed_div" class="horse_wager_placed_div">
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col">Horse</th>
-                    <th scope="col">Bet Type</th>
-                    <th scope="col">Bet Amount</th>
-                    <th scope="col">Ratio</th>
-                </tr>
-            </thead>
-            <tbody id="horse_wager_placed_body">
-            </tbody>
-        </table>
+
     </div>
     <% if @debug %>
         <%= button_to "Restart Race", restart_race_path, method: :post %>

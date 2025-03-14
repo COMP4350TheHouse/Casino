@@ -58,19 +58,21 @@ consumer.subscriptions.create("HorseRaceChannel", {
 
     // Betting is closed
     if (is_betting_closed) {
-        console.log("Bets closed");
-        document.getElementById("main_betting_menu").style.visibility = "hidden";
-        document.getElementById("horse_wager_placed_div").style.visibility = "hidden";
+        // document.getElementById("main_betting_menu").style.visibility = "hidden";
+        // document.getElementById("horse_wager_placed_div").style.visibility = "hidden";
 
-        //
-        document.getElementById("horse_wager_payout_div").style.visibility = "visible";
+        // document.getElementById("horse_wager_payout_div").style.visibility = "visible";
+        document.getElementById("horse_betting_div").style.visibility = "hidden";
+        document.getElementById("horse_closed_betting_div").style.visibility = "visible";
     } else {
     // Betting is not closed
-        console.log("Bets open");
-        document.getElementById("main_betting_menu").style.visibility = "visible";
-        document.getElementById("horse_wager_placed_div").style.visibility = "visible";
+        document.getElementById("horse_betting_div").style.visibility = "visible";
+        document.getElementById("horse_closed_betting_div").style.visibility = "hidden";
 
-        document.getElementById("horse_wager_payout_div").style.visibility = "hidden";
+        // document.getElementById("main_betting_menu").style.visibility = "visible";
+        // document.getElementById("horse_wager_placed_div").style.visibility = "visible";
+
+        // document.getElementById("horse_wager_payout_div").style.visibility = "hidden";
     }
 
     if (resetting) {

@@ -4,6 +4,25 @@
     height:50px;
 }
 
+.horse_bet_super_grid {
+    display: grid;
+    /* align-items: center; */
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.center_grid_item_div {
+    position: relative;
+}
+
+#horse_closed_betting_div {
+    top: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+}
+
 .horse_bet_grid {
   display: grid;
   align-items: center;
@@ -47,6 +66,7 @@
 
     background-color: #FF0000;
 }
+
 
 .bet_ratio {
     text-align: center;

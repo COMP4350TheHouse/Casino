@@ -83,8 +83,9 @@ class Horse < ApplicationRecord
       save
     # Race has finished, pay winners
     else
-      position = 100 # Caps position to 100
       placing = place
+      position = 1000 # Once a horse is finished put it so far forward it can't be passed
+      save
 
       wagers = Wager.all.where(horse_id: id) # Wagers on me (me being the horse)
       winning_wagers = wagers.select { |wager| wager.hits?(placing) } # Wagers that hit based on wager kind and actual horse placing
