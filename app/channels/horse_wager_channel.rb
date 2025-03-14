@@ -1,3 +1,4 @@
+# Updates Horse Wagers
 class HorseWagerChannel < ApplicationCable::Channel
   def subscribed
     stream_from "horse_wager_channel"

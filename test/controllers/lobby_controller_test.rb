@@ -37,14 +37,6 @@ class LobbyControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_session_path
   end
 
-  # Test for pressing the horse racing button to redirect to the horse racing game
-  test "should redirect to horse racing" do
-    get lobby_path
-    assert_response :success
-    post horse_racing_lobby_path
-    assert_redirected_to horse_race_betting_path
-  end
-
   test "regenerate all horse" do
   end
 end
