@@ -78,7 +78,8 @@ class Horse < ApplicationRecord
   def tick
     # Race hasn't finished, continue moving
     if position < 100
-      self.position += speed
+      speed_change = (0..8)
+      self.position += 5 + speed_change.to_a.sample
       save
     # Race has finished, pay winners
     else

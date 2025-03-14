@@ -21,6 +21,16 @@ class Wager < ApplicationRecord
     tooltip[kind.to_sym]
   end
 
+  def self.type_text(kind)
+    type = {
+      straight: "Straight",
+      place: "Place",
+      show: "Show",
+    }
+
+    type[kind.to_sym]
+  end
+
   # Based on the horse's place did the wager hit?
   def hits?(place)
     case kind.to_sym
@@ -50,9 +60,9 @@ class Wager < ApplicationRecord
 
   def payout_message
     {
-      horse_name: "Test",
-      payout: "Test",
-      bet_type: "Test",
+      horse_name: Horse.find(horse_id).name,
+      payout: payout,
+      bet_type: Wager.type_text(kind),
     }
   end
 end

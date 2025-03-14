@@ -10,10 +10,16 @@ consumer.subscriptions.create("HorseRaceChannel", {
   },
 
   received(data) {
-    const horses = data.message;
+    const horses = data.message.horses;
+    const resetting = data.message.resetting;
+
+    const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
+    const POSITION_WHEN_BETS_CLOSE = 70;
 
     let has_started = false;
     let horse_has_finished = false;
+    let is_betting_closed = false;
+
     const horseDivs = document.getElementsByClassName("race_horse");
 
     let index = 0;
@@ -22,6 +28,10 @@ consumer.subscriptions.create("HorseRaceChannel", {
     horses.forEach(horse => {
       const horseImg = horseDivs[index];
       const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
+
+      if (horse.position >= POSITION_WHEN_BETS_CLOSE) {
+          is_betting_closed = true;
+      }
 
       // Move Horse
       horseImg.style.left = Math.min(100, horse.position) * 0.90 + "%"; // Caps the position to 90
@@ -41,25 +51,41 @@ consumer.subscriptions.create("HorseRaceChannel", {
           horseImg.style.animationPlayState = "running";
       }
 
-      //let horseCardDiv = document.getElementById("horse" + horse.id + "Card");
-      //horseCardDiv = horse.bet_card;
-
-      /*
-      // Update betting odds
-      const horseCardDiv = document.getElementById("horse" + horse.id + "Card");
-      const kinds = ["straight", "place", "show"];
-
-      kinds.forEach(kind => {
-        const kindDiv = horseCardDiv.querySelector("#" + kind + "Form");
-        const payout  = kindDiv.querySelector("#payout");
-        payout.innerText = horse[kind + "_odds"];
-      });
-      */
-
-        index += 1;
+      index += 1;
     });
 
     const race_track = document.getElementById("race_track");
+
+    // Betting is closed
+    if (is_betting_closed) {
+        console.log("Bets closed");
+        document.getElementById("main_betting_menu").style.visibility = "hidden";
+        document.getElementById("horse_wager_placed_div").style.visibility = "hidden";
+
+        //
+        document.getElementById("horse_wager_payout_div").style.visibility = "visible";
+    } else {
+    // Betting is not closed
+        console.log("Bets open");
+        document.getElementById("main_betting_menu").style.visibility = "visible";
+        document.getElementById("horse_wager_placed_div").style.visibility = "visible";
+
+        document.getElementById("horse_wager_payout_div").style.visibility = "hidden";
+    }
+
+    if (resetting) {
+        // Clear the tables
+        document.getElementById("horse_wager_placed_body").innerHTML = "";
+
+        document.getElementById("horse_wager_payout_body").innerHTML = "";
+
+        // Move the track back so it looks less janky
+        race_track.style.animationPlayState = "running";
+        setTimeout(function() {
+          race_track.style.animationPlayState = "paused";
+        }, ANIMATION_PAUSE_DELAY);
+    }
+
     if (horse_has_finished) {
         race_track.style.animationPlayState = "paused";
 
@@ -77,10 +103,8 @@ consumer.subscriptions.create("HorseRaceChannel", {
             horseImg.style.animationDuration = "0.1s";
             index += 1;
         });
-        race_track.style.animationPlayState = "paused";
     } else {
         race_track.style.animationPlayState = "running";
     }
-
   }
 });
