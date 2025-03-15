@@ -1,0 +1,43 @@
+
+<%= stylesheet_link_tag 'horse_betting.css', media: 'all' %>
+
+<%= form_with(url: submit_bet_path, method: :post, remote: true, html: { id: "horse_bet_form_#{horse.id}_#{kind}" }) do |form| %>
+<%= form.hidden_field :kind,  value: kind %>
+<% form.label horse.id, class: "bet_input" %>
+<%= form.hidden_field :horse, value: horse.id %>
+<%= number_field_tag :amount, nil, step: 0.01, in: 1..Current.session.user.balance, id: "bet_input_#{horse.id}_#{kind}", class: "bet_input" %>
+<%= form.label "#{'%5.0f' % horse.odds(kind)}x", id: "bet_ratio_#{horse.id}_#{kind}", class: "bet_ratio_div" %>
+<div class="place_button">
+    <%= submit_tag "#{kind.to_s.capitalize} Bet",  class: "place_button" %>
+    <span class="tooltiptext"> <%= Wager.tooltip(kind) %> </span>
+</div>
+<% end %>
+
+<script>
+
+document.getElementById("horse_bet_form_" + "<%= horse.id %>" + "_<%= kind %>").addEventListener('submit', function() {
+  let tbodyRef = document.getElementById('horse_wager_placed_body');
+
+  if (document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value == '') {
+    return;
+  }
+
+
+  let row = tbodyRef.insertRow();
+  let cell1 = row.insertCell(0);
+  let cell2 = row.insertCell(1);
+  let cell3 = row.insertCell(2);
+  let cell4 = row.insertCell(3);
+
+
+  cell1.innerHTML = "<%= horse.name %>"
+  cell2.innerHTML = "<%= kind %>"
+  cell3.innerHTML = document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value;
+  cell4.innerHTML = "<%= horse.odds(kind) %>";
+
+  setTimeout(function() {
+    document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value = '';
+  }, 20); // Just has to delay a little bit
+});
+
+</script>

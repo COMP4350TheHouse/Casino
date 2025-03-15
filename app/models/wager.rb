@@ -21,6 +21,16 @@ class Wager < ApplicationRecord
     tooltip[kind.to_sym]
   end
 
+  def self.type_text(kind)
+    type = {
+      straight: "Straight",
+      place: "Place",
+      show: "Show"
+    }
+
+    type[kind.to_sym]
+  end
+
   # Based on the horse's place did the wager hit?
   def hits?(place)
     case kind.to_sym
@@ -41,5 +51,17 @@ class Wager < ApplicationRecord
     user = User.find(user_id)
     user.balance += payout
     user.save
+
+    # Send down ActionCable
+    ActionCable.server.broadcast("horse_wager_channel", { message: payout_message })
+    puts "Paying out!!"
+  end
+
+  def payout_message
+    {
+      horse_name: Horse.find(horse_id).name,
+      payout: payout,
+      bet_type: Wager.type_text(kind)
+    }
   end
 end

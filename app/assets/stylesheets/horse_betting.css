@@ -4,6 +4,39 @@
     height:50px;
 }
 
+.horse_bet_super_grid {
+    display: grid;
+    /* align-items: center; */
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.center_grid_item_div {
+    position: relative;
+}
+
+#horse_closed_betting_div {
+    top: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-color: black;
+}
+
+.horse_bet_grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.horse_card {
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .horse_name {
     height:50px;
     vertical-align:middle;
@@ -33,6 +66,7 @@
 
     background-color: #FF0000;
 }
+
 
 .bet_ratio {
     text-align: center;
@@ -68,6 +102,19 @@
 
     outline-width: 2px;
     outline-color: #FF0000;
+}
+
+.horse_betting_menu {
+    position: relative;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, auto);
+
+    width: 700px;
+    margin: 0 auto;
+
+    background-color: #00AAAA;
+    padding: 10px;
 }
 
 /* Horse Images */
@@ -111,6 +158,8 @@
     position: absolute;
     z-index: 1;
 }
+
+
 
 .place_button:hover .tooltiptext,
 .straight_button:hover .tooltiptext {
@@ -174,6 +223,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height: 30px;
 }
+
 .show_div {
     position: absolute;
     left: 0px;
@@ -182,6 +232,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height: 30px;
 }
+
 .straight_div {
     position: absolute;
     left: 0px;

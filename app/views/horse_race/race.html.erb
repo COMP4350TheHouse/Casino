@@ -77,7 +77,7 @@
 
 <div class="background">
     <div class="race_image"></div>
-<% Horse.all.each_with_index do |horse, index| %>
+    <% Horse.all.each_with_index do |horse, index| %>
     <%= render 'shared/horse_race', horse: horse, track_index: index %>
 <% end %>
 
