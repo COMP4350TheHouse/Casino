@@ -1,9 +1,9 @@
 (function($) {
-	
+
 	// table
 	(function() {
 		"use strict"
-		
+
 		function getButtonCells(btn) {
 			var cells = btn.data('cells');
 			if (!cells || !cells.length) {
@@ -82,7 +82,7 @@
 			}
 		})
 
-		$(selectors.sector).each(function() { 
+		$(selectors.sector).each(function() {
 			var $this = $(this),
 				color;
 			if ($this.hasClass(classes.red)) {
@@ -178,22 +178,22 @@
 			var numbers=[];
 			if(typeof $(this).data('sector') != 'undefined'){
 				console.log("SECTOR "+$(this).data('sector'));
-				
+
 				if(e.button==2)ChangeBet(36+$(this).data('sector'),-1);
 				else ChangeBet(36+$(this).data('sector'),betAmount);
 			}
 			else{
 				numbers=$(this).data('num');
-				
+
 				if(typeof numbers.length ==='undefined')numbers=[numbers];
 				else numbers=numbers.split(',');
-				
+
 				if(e.button==2)for(var i=0;i<numbers.length;i++)ChangeBet(numbers[i],-1);
 				else for(var i=0;i<numbers.length;i++)ChangeBet(numbers[i],betAmount);
 			}
 		});
 	})();
-	
+
 document.oncontextmenu = function() {if(hovering)return false;};
 
 })(jQuery);
@@ -210,7 +210,6 @@ function sendBet(id, amount) {
     })
     .then(response => response.json())
     .then(data => {
-		//console.log(data);
 		document.getElementById('balance').innerText = `Balance: $${data.balance}`;
 		if(data.valid_bet == true){
 			placeIndividualChip(id)
@@ -235,7 +234,7 @@ function ChangeBet(id, amount) {
 // Manually call 'payout_bets' which will generate a random number for winning, then award the winners their profits
 function placeBet(num) {
     fetch('/roulette/payout_bets', {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -244,7 +243,6 @@ function placeBet(num) {
     })
     .then(response => response.json())
     .then(data => {
-		//console.log(data);
 		document.getElementById('balance').innerText = `Balance: $${data.balance}`;
     })
     .catch(error => console.error('Error:', error));
@@ -264,7 +262,7 @@ for(var i=0;i<divs.length;i++){
 		attr=divs[i].getAttribute("data-sector");
 		if(attr==null)continue;
 		var index=36+parseInt(attr);
-		
+
 		var rekt=divs[i].getBoundingClientRect();
 		squares[index]=new Array(2);
 		squares[index][1]=rekt.top+10;
@@ -314,19 +312,19 @@ function placeIndividualChip(id){
     img.src = chipImages[betAmount] || casinoChipRed; // Default to red if undefined
 	img.style.zIndex="0";
 	img.style.position="absolute";
-	
+
 	var rX=rInt(-8,8);
 	var rY=rInt(50,55);
-	
+
 	// Adjust for viewport scroll and scaling
 	img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 	img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-	
+
 	img.style.width="20px";
 	img.style.pointerEvents="none";
-	
+
 	document.body.appendChild(img);
-	
+
 	if(chips[id]==null)chips[id]=new Array(0);
 	chips[id].push(img);
 
@@ -338,7 +336,7 @@ function placeIndividualChip(id){
 function initializePlacedChips(){
 	// Call the placed_chips_request Ruby function
 	fetch('/roulette/placed_chips_request', {
-		method: 'POST', 
+		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json',
 		  'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -375,21 +373,21 @@ function initializePlacedChips(){
 			img.src = chipImages[amount] || casinoChipRed;
 			img.style.zIndex="0";
 			img.style.position="absolute";
-			
+
 			var rX=rInt(-8,8);
 			var rY=rInt(50,55);
-			
+
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 			img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
 			//img.style.left=(squares[id][0]+rX)+"px";
 			//img.style.top=(squares[id][1]+rY)+"px";
-			
+
 			img.style.width="20px";
 			img.style.pointerEvents="none";
-			
+
 			document.body.appendChild(img);
-			
+
 			if(chips[id]==null)chips[id]=new Array(0);
 			chips[id].push(img);
 		  }
@@ -434,25 +432,25 @@ function placeChips(){
 		img.src = chipImages[amount] || casinoChipRed;
 		img.style.zIndex="0";
 		img.style.position="absolute";
-		
+
 		var rX=rInt(-8,8);
 		var rY=rInt(50,55);
-		
+
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 		img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
 		//img.style.left=(squares[id][0]+rX)+"px";
 		//img.style.top=(squares[id][1]+rY)+"px";
-		
+
 		img.style.width="20px";
 		img.style.pointerEvents="none";
-		
+
 		document.body.appendChild(img);
-		
+
 		if(chips[id]==null)chips[id]=new Array(0);
 		chips[id].push(img);
 	}
-	
+
 }
 
 // Function to check if the chat box is clicked so that we can reposition chips
@@ -540,7 +538,7 @@ function spinWheel(){
 	// Get the winning number stored in the server
 	var randomNumber = Math.floor(Math.random() * 36);
 	fetch('/roulette/winning_num_request', {
-		method: 'GET', 
+		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 			'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -548,12 +546,10 @@ function spinWheel(){
 	})
 	.then(response => response.json())
 	.then(data => {
-		//console.log(data)
 		randomNumber = data.winning_num
 
 		// Animate the ball
 		var color = null;
-		//console.log(randomNumber)
 		$inner.attr('data-spinto', randomNumber).find('li:nth-child('+ randomNumber +') input').prop('checked','checked');
 
 		// Remove the place holder
@@ -571,16 +567,16 @@ function spinWheel(){
 		// Timeout function to remove the disabled attribute when the roulette animation has stopped
 		setTimeout(function() {
 			$reset.removeClass('disabled').prop('disabled','');
-			
+
 			// Replace the mask value with the value the ball landed on and the colour
 			if($.inArray(randomNumber, red) !== -1){ color = 'red'} else { color = 'black'};
 			if(randomNumber == 0){color = 'green'};
-			
+
 			$('.result-number').text(randomNumber);
 			$('.result-color').text(color);
 			$('.result').css({'background-color': ''+color+''});
 			$data.addClass('reveal');
-			$inner.addClass('rest');	
+			$inner.addClass('rest');
 		}, timer);
 
 		// Timeout function to reset the ball after a few seconds

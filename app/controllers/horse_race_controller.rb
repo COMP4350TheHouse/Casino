@@ -41,10 +41,8 @@ class HorseRaceController < ApplicationController
     wager = create_wager(params)
     wager.save # add wager to database
 
-    # puts "$#{Current.session.user.balance}"
     Current.session.user.balance -= wager.amount # remove money from the user's bankaccount
     Current.session.user.save # update user
-    # puts "$#{Current.session.user.balance}"
 
     redirect_to horse_race_betting_path
   end
