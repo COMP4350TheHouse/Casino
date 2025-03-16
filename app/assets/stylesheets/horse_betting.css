@@ -226,8 +226,8 @@ input::-webkit-inner-spin-button {
 
 /* Tool Tips on the bet buttons */
 .place_button {
-    background-color: transparent;
-    border: 2px solid #1f1f1fc0;
+    background-color: #00740020;
+    border: 2px solid #284728;
     position: absolute;
 
     right: 0px;
@@ -235,11 +235,11 @@ input::-webkit-inner-spin-button {
     width: 100px;
     height: 30px;
 
-    color: #007400c0;
+    color: #284728;
 }
 
 .place_button:hover {
-    background-color: #00000020;
+    background-color: #00740040;
 }
 
 .place_div {
