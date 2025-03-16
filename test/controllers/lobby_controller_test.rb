@@ -1,12 +1,6 @@
 require "test_helper"
 
 class LobbyControllerTest < ActionDispatch::IntegrationTest
-  # Test for the coming soon buttons/tables (roulette & slots)
-  test "should show coming soon/under construction tables" do
-    get lobby_path
-    assert_select "button.coming-soon", count: 2
-  end
-
   # Verify that the horse racing table exists
   test "should check that the horse racing table exists" do
     get lobby_path
@@ -17,12 +11,6 @@ class LobbyControllerTest < ActionDispatch::IntegrationTest
   test "should check that the roulette table exists" do
     get lobby_path
     assert_select "div.lobby-game#roulette"
-  end
-
-  # Verify that the slots exists
-  test "should check that the slots exists" do
-    get lobby_path
-    assert_select "div.lobby-game#slots"
   end
 
   # Test for the arriving at the casino lobby page

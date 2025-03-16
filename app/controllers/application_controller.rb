@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  helper_method :current_user, :logged_in?, :on_lobby_page?, :on_horse_racing?, :current_session
+  helper_method :current_user, :logged_in?, :on_lobby_page?, :on_horse_racing?, :on_roulette?, :current_session
 
   def current_session
     @session = Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
@@ -28,5 +28,9 @@ class ApplicationController < ActionController::Base
 
   def on_horse_racing?
     @current_path == horse_race_index_path
+  end
+
+  def on_roulette?
+    @current_path == roulette_roulette_board_path
   end
 end
