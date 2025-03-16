@@ -5,9 +5,9 @@
 <%= form.hidden_field :kind,  value: kind %>
 <% form.label horse.id, class: "bet_input" %>
 <%= form.hidden_field :horse, value: horse.id %>
-<%= number_field_tag :amount, nil, step: 0.01, in: 1..Current.session.user.balance, id: "bet_input_#{horse.id}_#{kind}", class: "bet_input" %>
+<%= number_field_tag :amount, nil, step: 0.01, in: 1..Current.session.user.balance, id: "bet_input_#{horse.id}_#{kind}", class: "bet_input", placeholder: "$0.00" %>
 <%= form.label "#{'%5.0f' % horse.odds(kind)}x", id: "bet_ratio_#{horse.id}_#{kind}", class: "bet_ratio_div" %>
-<div class="place_button">
+<div class="place_button_div">
     <%= submit_tag "#{kind.to_s.capitalize} Bet",  class: "place_button" %>
     <span class="tooltiptext"> <%= Wager.tooltip(kind) %> </span>
 </div>

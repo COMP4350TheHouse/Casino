@@ -1,16 +1,23 @@
 <style>
+  @font-face {
+    font-family: "Caveat";
+    src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
+  }
+  
   body {
     cursor: url('<%= asset_path "horse1.png" %>'), auto;
   }
 
   .balance_div {
-      margin: 5px auto;
+      margin: 0 0 5px auto;
       text-align: center;
       padding: 5px;
       width: 10em;
       outline: 2px;
       border-radius: 10px;
-      background-color: white;
+
+      font-family: "Caveat";
+      font-size: x-large;
   }
   .balance {
       margin: auto;
@@ -101,12 +108,8 @@
     font-weight: bold;
   }
 
-  @font-face {
-    font-family: "Caveat";
-    src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
-  }
-
   .paper {
+    position: relative;
     margin: 2rem auto;
     width: fit-content;
     min-height: 30rem;
@@ -116,15 +119,25 @@
     box-shadow: 0 0 1rem #000000b0;
 
     background-image: url('<%= asset_path "paper.png" %>');
-
-    font-family: "Caveat";
-    font-size: large;
   }
 
   .pin {
     display: block;
     height: 2rem;
     margin: auto;
+  }
+
+  .betting_closed_stamp {
+    margin: auto;
+    display: block;
+  }
+
+  .horse_betting_header {
+    text-align: center;
+    margin: 1rem 0;
+
+    font-family: "Caveat";
+    font-size: xx-large;
   }
 </style>
 
@@ -142,6 +155,7 @@
             <%# <div class="wood_sign"> %>
             <div class="paper">
                 <%= image_tag "pin.png", :class => "pin" %>
+                <header class="horse_betting_header">Bets</header>
                 <table class="horse_wager_table">
                     <thead>
                         <tr>
@@ -157,24 +171,27 @@
             </div>
         </div>
         <div class="center_grid_item_div">
-            <div id="horse_betting_div">
-                <div class="paper">
-                    <%= image_tag "pin.png", :class => "pin" %>
-                    <div class="balance_div"><a class="balance">Balance: $<%= Current.session.user.balance %></a></div>
+            <div class="paper">
+                <%= image_tag "pin.png", :class => "pin" %>
+                <div class="balance_div"><a class="balance">Balance: $<%= Current.session.user.balance %></a></div>
+                <div id="horse_betting_div">
+                    <header class="horse_betting_header">Place your bets!</header>
                     <div id="main_betting_menu" class="horse_betting_menu">
                         <% Horse.all.each do |horse| %>
                             <%= render 'shared/horse_race/bet/card', horse: horse %>
                         <% end %>
                     </div>
                 </div>
-            </div>
-            <div id="horse_closed_betting_div">
+                <div id="horse_closed_betting_div">
+                    <%= image_tag "betting_closed.png", :class => "betting_closed_stamp" %>
+                </div>
             </div>
         </div>
 
         <div id="horse_wager_payout_div" class="horse_wager_payout_div">
             <div class="paper">
                 <%= image_tag "pin.png", :class => "pin" %>
+                <header class="horse_betting_header">Payouts</header>
                 <table class="horse_wager_table">
                     <thead>
                         <tr>
