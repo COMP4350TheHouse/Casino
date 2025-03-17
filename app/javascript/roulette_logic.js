@@ -1,15 +1,17 @@
 (function($) {
 
-	// table
+	// Function will execute automatically when loading into the page
 	(function() {
 		"use strict"
 
+		// Function to retrieve the the roulette board cells associated with its corresponding button
 		function getButtonCells(btn) {
 			var cells = btn.data('cells');
 			if (!cells || !cells.length) {
 				cells = [];
 				switch (btn.data('type')) {
 					case 'sector':
+						// Get numbers associated with each sector of the board
 						var nums = sectors[btn.data('sector')];
 						for (var i = 0, len = nums.length; i < len; i++) {
 							cells.push(table_nums[nums[i]]);
@@ -18,6 +20,7 @@
 						break;
 					case 'num':
 					default:
+						// Get the numbers associated with each individual number on the board
 						var nums = String(btn.data('num')).split(',');
 						for (var i = 0, len = nums.length; i < len; i++) {
 							cells.push(table_nums[nums[i]]);
@@ -30,7 +33,7 @@
 			return cells;
 		};
 
-		// props
+		// Variables for game state, betting classes, and UI components
 		var active = true,
 			selectors = {
 				roulette : '.roulette',
@@ -66,14 +69,14 @@
 			table_nums = {},
 			table_sectors = {};
 
-		// init
+		// Initialize each number element and store all the references
 		$(selectors.num).each(function() {
 			var $this = $(this),
 				color,
 				num = Number($this.text());
-			// add to instances array
+			// Store the reference to the number element
 			table_nums[num] = $this;
-			// add to colors array
+			// Assign corresponding colours to each number
 			for (var color in numbers) {
 				if ($this.hasClass(classes[color])) {
 					numbers[color].push(num);
@@ -82,6 +85,7 @@
 			}
 		})
 
+		// Initialize each sector element and store the references
 		$(selectors.sector).each(function() {
 			var $this = $(this),
 				color;
@@ -96,14 +100,14 @@
 			table_sectors[$this.data('sector')] = $this;
 		});
 
-		// sort numbers
+		// Sort all numbers by their colours
 		for (var color in numbers) {
 			numbers[color].sort(function(a, b) { return a - b; });
 		}
 
-		// populate sectors
+		// Assign the numbers to the sectors they belong to (from defined variable above)
 		for (var i = 1; i <= 36; i++) {
-			// 1st row, 2nd row, 3rd row
+			// Assign the number to a row
 			switch (i%3) {
 				case 0:
 					sectors['1'].push(i);
@@ -116,7 +120,7 @@
 					break;
 			}
 
-			// 1st 12, 2nd 12, 3rd 12
+			// Assign the number to a group of dozens
 			if (i <= 12) {
 				sectors['4'].push(i);
 			} else if (i <= 24) {
@@ -125,20 +129,21 @@
 				sectors['6'].push(i);
 			}
 
-			// 1 to 18, 19 to 36
+			// Assign the number to upper or lower half
 			if (i <= 18) {
 				sectors['7'].push(i);
 			} else {
 				sectors['12'].push(i);
 			}
 
-			// ODD, EVEN
+			// Assign the number to be odd or even
 			if (i%2) {
 				sectors['11'].push(i);
 			} else {
 				sectors['8'].push(i);
 			}
 
+			// Assign the number to its colour
 			if (numbers.red.indexOf(i) != -1) {
 				sectors['9'].push(i);
 			} else if (numbers.black.indexOf(i) != -1) {
@@ -146,7 +151,7 @@
 			}
 		}
 
-		// buttons
+		// Click events and button hover UI changes when moving over the roulette board
 		var table_btns = $(selectors.table_btns).hover(
 			function() {
 				hovering=1;
@@ -177,8 +182,6 @@
 		).mousedown(function(e) {
 			var numbers=[];
 			if(typeof $(this).data('sector') != 'undefined'){
-				console.log("SECTOR "+$(this).data('sector'));
-
 				if(e.button==2)ChangeBet(36+$(this).data('sector'),-1);
 				else ChangeBet(36+$(this).data('sector'),betAmount);
 			}
@@ -194,11 +197,12 @@
 		});
 	})();
 
-document.oncontextmenu = function() {if(hovering)return false;};
+	// Disable context menu when hovering over a roulette board element/cell
+	document.oncontextmenu = function() {if(hovering)return false;};
 
 })(jQuery);
 
-// Send the bet request to the roulette controller
+// Send the bet request to the roulette controller and place a chip on the selected cell (IF VALID)
 function sendBet(id, amount) {
     fetch('/roulette/submit_roulette_bet', {
         method: 'POST',
@@ -281,6 +285,7 @@ function rInt(min,max){
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Array of chip objects that are placed on each cell of the roulette board
 var chips=new Array(48);
 
 // Variable for storing the currently placed chips
@@ -610,8 +615,10 @@ const chipData = [
 	{ src: casinoChipBlack, value: 1000}
 ];
 
+// Finds the chipContainer UI element in the HTML
 const chipContainer = document.getElementById("chipContainer");
 
+// Dynamically append the chips to the chip container so that the user can switch bet amounts
 chipData.forEach((chipInfo, index) => {
 	const chip = document.createElement("img");
 	chip.src = chipInfo.src;
@@ -638,8 +645,8 @@ chipData.forEach((chipInfo, index) => {
 // Call placeChips() initially if you come to the page for the first time
 initializePlacedChips()
 
+// Variables for tracking game state, bet amount, and roulette countdown timers
 var rouletteInterval = setInterval(updateRouletteStartTimer, 1000);
 var rouletteInPlay = false;
 let betAmount = 1 // Start with red chip by default
-//var chipInterval = setInterval(placeChips, 10000)
 var hovering=0;
