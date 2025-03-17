@@ -1,3 +1,4 @@
+/* Rotates each number around the center of the wheel (360/37 = 9.72972972972973 -> for each number 0-26) */
 .number:nth-child(1) {
     transform: rotateZ(9.72972973deg);
   }
@@ -106,6 +107,8 @@
   .number:nth-child(36) {
     transform: rotateZ(350.27027027deg);
   }
+
+  /* Styles the spinner container */
   .spinner {
     width: 374px;
     vertical-align: middle;
@@ -113,6 +116,8 @@
     align-items: center;      /* Centers vertically */
     margin-top: 10px;
   }
+
+  /* Styles the roulette plate in the wheel */
   .plate {
     background-color: gray;
     width: 350px;
@@ -123,6 +128,8 @@
     -webkit-animation: rotate 24s infinite linear;
             animation: rotate 24s infinite linear;
   }
+
+  /* Outer and inner decorative elements (provides a gold outer trim and inner shadow to the wheel) */
   .plate:after,
   .plate:before {
     content: "";
@@ -148,6 +155,8 @@
     bottom: 12%;
     z-index: 1;
   }
+
+  /* Styles the numbers on the wheel using the font family 'Press Start 2P' */
   .number {
     width: 32px;
     height: 175px;
@@ -164,12 +173,16 @@
     border-top: 175px solid black;
     box-sizing: border-box;
   }
+  /* Colors alternating numbers that belong to the red group, otherwise they're black */
   .number:nth-child(odd) {
     border-top-color: red;
   }
+  /* Makes the 37th child/number (zero) green */
   .number:nth-child(37) {
     border-top-color: green;
   }
+
+  /* Styles for the "pit" of the roulette wheel, where the balls fall into */
   .pit {
     color: #fff;
     padding-top: 12px;
@@ -182,6 +195,8 @@
     top: -175px;
     left: -16px;
   }
+
+  /* Inner styling for the plate in the center of the wheel which will show the winning number and mask text */
   .inner {
     display: block;
     height: 350px;
@@ -216,6 +231,8 @@
     z-index: 5;
     border-radius: 0;
   }
+
+  /* Rotating effect when spun for each potential winning number (which will take 9 seconds while spinning counter clockwise) */
   .inner[data-spinto="1"]:before {
     transform: rotateZ(-2602deg);
     transition: transform 9s ease-out;
@@ -401,6 +418,8 @@
     transition: transform 9s ease-out;
     content: "\2022";
   }
+
+  /* Resting state after spinning, will ease into the center plate area */
   .inner.rest:before {
     transition: top 0.5s ease-in, right 0.5s ease-in, bottom 0.5s ease-in, left 0.5s ease-in;
     top: 27%;
@@ -408,6 +427,8 @@
     bottom: 27%;
     left: 27%;
   }
+
+  /* Animation for continuous rotation */
   @-webkit-keyframes rotate {
     0% {
       transform: rotateZ(0deg);
@@ -424,6 +445,8 @@
       transform: rotateZ(360deg);
     }
   }
+
+  /* Data container in the center of the wheel which contains winning number, colour, and mask text*/
   .data {
     display: block;
     position: absolute;
@@ -486,6 +509,8 @@
     font-size: 21px;
     line-height: 1;
   }
+
+  /* Colors for result display */
   .color-green {
     background-color: green;
   }
@@ -495,6 +520,8 @@
   .color-red {
     background-color: red;
   }
+
+  /* Visually hidden elements */
   .visuallyhidden {
     position: absolute;
     overflow: hidden;
@@ -505,6 +532,8 @@
     padding: 0;
     border: 0;
   }
+
+  /* Flip-in animation */
   @-webkit-keyframes flipin {
     0% {
       transform: rotateX(90deg);

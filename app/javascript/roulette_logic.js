@@ -39,7 +39,7 @@
 				roulette : '.roulette',
 				num : '.num',
 				sector : '.sector',
-				table_btns : '.controlls .btn'
+				table_btns : '.controls .btn'
 			},
 			classes = {
 				red : 'red',
