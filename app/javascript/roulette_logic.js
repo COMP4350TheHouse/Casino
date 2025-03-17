@@ -1,3 +1,8 @@
+/* 
+	This code contains references pulled from: https://codepen.io/dadas190/pen/BYpEOa
+	To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations 
+*/
+
 (function($) {
 
 	// Function will execute automatically when loading into the page

@@ -1,3 +1,8 @@
+/* 
+	This code contains references pulled from: https://codepen.io/pder/pen/WYrRQm
+	To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations 
+*/
+
 /* Rotates each number around the center of the wheel (360/37 = 9.72972972972973 -> for each number 0-26) */
 .number:nth-child(1) {
     transform: rotateZ(9.72972973deg);
