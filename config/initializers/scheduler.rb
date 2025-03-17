@@ -8,6 +8,7 @@ last_minute = DateTime.now.minute
 MAX_TICK_DELAY = 10
 tick_delay = 0
 
+# Update the horse race every 2 seconds
 scheduler.every '2s' do
   time_to_next_race = tick_delay.zero? ? "Racing" : tick_delay * 2
 
@@ -32,4 +33,9 @@ scheduler.every '2s' do
     Horse.update_all(position: 0)
     Horse.clear_all_wagers # On rare occasions Horses may not finish the race, this forces their wagers to clear
   end
+end
+
+# Schedule reset allowances job at midnight in central timezone
+scheduler.cron '0 0 * * * America/Chicago' do
+  ResetAllowancesJob.perform_later
 end

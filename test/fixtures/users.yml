@@ -5,14 +5,17 @@ one:
   username: one1
   password_digest: <%= password_digest %>
   balance: 100
+  allowance_paid: true
 
 two:
   email_address: two@example.com
   username: two2
   password_digest: <%= password_digest %>
+  allowance_paid: true
 
 three:
   email_address: three@example.com
   username: three3
   password_digest: <%= password_digest %>
   balance: 500
+  allowance_paid: true
