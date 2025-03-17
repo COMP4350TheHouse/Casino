@@ -22,13 +22,11 @@ document.getElementById("horse_bet_form_" + "<%= horse.id %>" + "_<%= kind %>").
     return;
   }
 
-
   let row = tbodyRef.insertRow();
   let cell1 = row.insertCell(0);
   let cell2 = row.insertCell(1);
   let cell3 = row.insertCell(2);
   let cell4 = row.insertCell(3);
-
 
   cell1.innerHTML = "<%= horse.name %>"
   cell2.innerHTML = "<%= kind %>"

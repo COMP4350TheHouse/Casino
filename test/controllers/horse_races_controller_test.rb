@@ -105,51 +105,6 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert do_all_wagers_hit? user.id
   end
 
-  # def place_winning_bet(kind)
-  #   login
-  #   # User
-  #   amount = 1.00
-  #   user = User.find_by(username: "one1")
-  #   user.balance = amount
-  #   user.save
-
-  #   # Horse
-  #   winner = Horse.first # Get a horse, doesnt matter who
-
-  #   # Place wager
-  #   place_bet({ horse: winner.id, kind: kind, amount: 1.0 })
-
-  #   # Make winner win
-  #   make_horse_finish(winner.id, kind)
-  #   winner.payout_wagers
-
-  #   # Make sure bet payed
-  #   user.reload
-  #   assert user.balance == winner.odds(kind) * amount
-  # end
-
-  # def does_wager_pay(kind, place)
-  # user = User.first
-  # user_id = user.id
-  # balance = user.balance
-  # winner = Horse.order(:speed)[place]
-  # place_bet({ horse: winner.id, kind: kind, amount: 1.00 })
-  # post resolve_race_path
-  #
-  # assert balance * winner.odds(kind) == User.find(user_id).balance
-  # end
-  #
-  # def does_wager_not_pay(kind, place)
-  # user = User.first
-  # winner = Horse.order(:speed)[place]
-  # bet_amount = 1.00
-  #
-  # place_bet({ horse: winner.id, kind: kind, amount: bet_amount })
-  # post resolve_race_path
-  #
-  # assert user.balance
-  # end
-
   test "should place show bet" do
     login
     place_bet({ horse: Horse.first.id, kind: :show, amount: 0.0 })
