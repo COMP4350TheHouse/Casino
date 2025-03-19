@@ -10,7 +10,6 @@ consumer.subscriptions.create("HorseRaceChannel", {
   },
 
   received(data) {
-<<<<<<< HEAD
     const horses = data.message.horses;
     const resetting = data.message.resetting;
     const time_to_next_race = data.message.time_to_next_race;
@@ -118,13 +117,5 @@ consumer.subscriptions.create("HorseRaceChannel", {
     } else {
         race_track.style.animationPlayState = "running";
     }
-=======
-    // Called when there's incoming data on the websocket for this channel
-    const messages = document.getElementById('Horse Race');
-    const message  = document.createElement('p');
-
-    message.innerHTML = data["body"];
-    messages.insertBefore(message, messages.firstChild);
->>>>>>> 914d31eb3c33807905e55dd705c76cd2b5e02cec
   }
 });
