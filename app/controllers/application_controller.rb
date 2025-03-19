@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include Authentication
-  before_action :set_current_path, :current_session
+  before_action :set_current_path, :current_session, :pay_user_allowances
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -12,6 +12,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= current_session.user
+  end
+
+  # Check to pay user allowances on every page load where the user is logged in
+  def pay_user_allowances
+    return unless logged_in?
+
+    current_user.pay_allowance
   end
 
   def logged_in?

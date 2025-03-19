@@ -1,5 +1,7 @@
 # This model represents a user account
 class User < ApplicationRecord
+  DAILY_ALLOWANCE = 1000.00
+
   has_secure_password
   has_many :wagers, dependent: :destroy
   has_many :sessions, dependent: :destroy
@@ -20,4 +22,11 @@ class User < ApplicationRecord
   validates :balance,
             presence: true,
             numericality: { greater_than_or_equal_to: 0 }
+
+  def pay_allowance
+    return if allowance_paid
+
+    update balance: balance + DAILY_ALLOWANCE
+    update allowance_paid: true
+  end
 end

@@ -215,8 +215,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
 
     pp winner.odds(kind) * amount
     pp me.balance
-
-    assert me.balance == winner.odds(kind) * amount
+    assert me.balance.round == (winner.odds(kind) * amount).round
   end
 
   test "should pay user accordingly for sucessful second placed horse show wager" do

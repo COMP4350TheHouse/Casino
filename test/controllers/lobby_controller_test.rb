@@ -24,7 +24,4 @@ class LobbyControllerTest < ActionDispatch::IntegrationTest
     delete session_path
     assert_redirected_to new_session_path
   end
-
-  test "regenerate all horse" do
-  end
 end
