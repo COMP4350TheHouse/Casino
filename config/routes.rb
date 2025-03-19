@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "chat/send"
+  get "chat/receive"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   root "lobby#index"
@@ -23,8 +25,7 @@ Rails.application.routes.draw do
   post "/lobby/roulette", to: "lobby#roulette", as: :roulette_lobby
 
   get "horse_race/index", to: "horse_race#index"
-  # get "horse_race/race"
-  # get "horse_race/betting"
+  post "/chat/send", to: "chat#send_message", as: 'send_message'
 
   get "roulette/roulette_board"
 

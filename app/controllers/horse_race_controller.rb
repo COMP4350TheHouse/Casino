@@ -39,6 +39,11 @@ class HorseRaceController < ApplicationController
 
     Current.session.user.balance -= wager.amount # remove money from the user's bankaccount
     Current.session.user.save # update user
+<<<<<<< HEAD
+=======
+
+    redirect_to horse_race_betting_path
+>>>>>>> 914d31eb3c33807905e55dd705c76cd2b5e02cec
   end
 
   def create_wager(params)

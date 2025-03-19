@@ -1,15 +1,22 @@
+/* 
+	This code contains references pulled from: https://codepen.io/dadas190/pen/BYpEOa
+	To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations 
+*/
+
 (function($) {
-	
-	// table
+
+	// Function will execute automatically when loading into the page
 	(function() {
 		"use strict"
-		
+
+		// Function to retrieve the the roulette board cells associated with its corresponding button
 		function getButtonCells(btn) {
 			var cells = btn.data('cells');
 			if (!cells || !cells.length) {
 				cells = [];
 				switch (btn.data('type')) {
 					case 'sector':
+						// Get numbers associated with each sector of the board
 						var nums = sectors[btn.data('sector')];
 						for (var i = 0, len = nums.length; i < len; i++) {
 							cells.push(table_nums[nums[i]]);
@@ -18,6 +25,7 @@
 						break;
 					case 'num':
 					default:
+						// Get the numbers associated with each individual number on the board
 						var nums = String(btn.data('num')).split(',');
 						for (var i = 0, len = nums.length; i < len; i++) {
 							cells.push(table_nums[nums[i]]);
@@ -30,13 +38,13 @@
 			return cells;
 		};
 
-		// props
+		// Variables for game state, betting classes, and UI components
 		var active = true,
 			selectors = {
 				roulette : '.roulette',
 				num : '.num',
 				sector : '.sector',
-				table_btns : '.controlls .btn'
+				table_btns : '.controls .btn'
 			},
 			classes = {
 				red : 'red',
@@ -66,14 +74,14 @@
 			table_nums = {},
 			table_sectors = {};
 
-		// init
+		// Initialize each number element and store all the references
 		$(selectors.num).each(function() {
 			var $this = $(this),
 				color,
 				num = Number($this.text());
-			// add to instances array
+			// Store the reference to the number element
 			table_nums[num] = $this;
-			// add to colors array
+			// Assign corresponding colours to each number
 			for (var color in numbers) {
 				if ($this.hasClass(classes[color])) {
 					numbers[color].push(num);
@@ -82,7 +90,8 @@
 			}
 		})
 
-		$(selectors.sector).each(function() { 
+		// Initialize each sector element and store the references
+		$(selectors.sector).each(function() {
 			var $this = $(this),
 				color;
 			if ($this.hasClass(classes.red)) {
@@ -96,14 +105,14 @@
 			table_sectors[$this.data('sector')] = $this;
 		});
 
-		// sort numbers
+		// Sort all numbers by their colours
 		for (var color in numbers) {
 			numbers[color].sort(function(a, b) { return a - b; });
 		}
 
-		// populate sectors
+		// Assign the numbers to the sectors they belong to (from defined variable above)
 		for (var i = 1; i <= 36; i++) {
-			// 1st row, 2nd row, 3rd row
+			// Assign the number to a row
 			switch (i%3) {
 				case 0:
 					sectors['1'].push(i);
@@ -116,7 +125,7 @@
 					break;
 			}
 
-			// 1st 12, 2nd 12, 3rd 12
+			// Assign the number to a group of dozens
 			if (i <= 12) {
 				sectors['4'].push(i);
 			} else if (i <= 24) {
@@ -125,20 +134,21 @@
 				sectors['6'].push(i);
 			}
 
-			// 1 to 18, 19 to 36
+			// Assign the number to upper or lower half
 			if (i <= 18) {
 				sectors['7'].push(i);
 			} else {
 				sectors['12'].push(i);
 			}
 
-			// ODD, EVEN
+			// Assign the number to be odd or even
 			if (i%2) {
 				sectors['11'].push(i);
 			} else {
 				sectors['8'].push(i);
 			}
 
+			// Assign the number to its colour
 			if (numbers.red.indexOf(i) != -1) {
 				sectors['9'].push(i);
 			} else if (numbers.black.indexOf(i) != -1) {
@@ -146,7 +156,7 @@
 			}
 		}
 
-		// buttons
+		// Click events and button hover UI changes when moving over the roulette board
 		var table_btns = $(selectors.table_btns).hover(
 			function() {
 				hovering=1;
@@ -177,28 +187,27 @@
 		).mousedown(function(e) {
 			var numbers=[];
 			if(typeof $(this).data('sector') != 'undefined'){
-				console.log("SECTOR "+$(this).data('sector'));
-				
 				if(e.button==2)ChangeBet(36+$(this).data('sector'),-1);
 				else ChangeBet(36+$(this).data('sector'),betAmount);
 			}
 			else{
 				numbers=$(this).data('num');
-				
+
 				if(typeof numbers.length ==='undefined')numbers=[numbers];
 				else numbers=numbers.split(',');
-				
+
 				if(e.button==2)for(var i=0;i<numbers.length;i++)ChangeBet(numbers[i],-1);
 				else for(var i=0;i<numbers.length;i++)ChangeBet(numbers[i],betAmount);
 			}
 		});
 	})();
-	
-document.oncontextmenu = function() {if(hovering)return false;};
+
+	// Disable context menu when hovering over a roulette board element/cell
+	document.oncontextmenu = function() {if(hovering)return false;};
 
 })(jQuery);
 
-// Send the bet request to the roulette controller
+// Send the bet request to the roulette controller and place a chip on the selected cell (IF VALID)
 function sendBet(id, amount) {
     fetch('/roulette/submit_roulette_bet', {
         method: 'POST',
@@ -210,7 +219,6 @@ function sendBet(id, amount) {
     })
     .then(response => response.json())
     .then(data => {
-		//console.log(data);
 		document.getElementById('balance').innerText = `Balance: $${data.balance}`;
 		if(data.valid_bet == true){
 			placeIndividualChip(id)
@@ -235,7 +243,7 @@ function ChangeBet(id, amount) {
 // Manually call 'payout_bets' which will generate a random number for winning, then award the winners their profits
 function placeBet(num) {
     fetch('/roulette/payout_bets', {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -244,7 +252,6 @@ function placeBet(num) {
     })
     .then(response => response.json())
     .then(data => {
-		//console.log(data);
 		document.getElementById('balance').innerText = `Balance: $${data.balance}`;
     })
     .catch(error => console.error('Error:', error));
@@ -264,7 +271,7 @@ for(var i=0;i<divs.length;i++){
 		attr=divs[i].getAttribute("data-sector");
 		if(attr==null)continue;
 		var index=36+parseInt(attr);
-		
+
 		var rekt=divs[i].getBoundingClientRect();
 		squares[index]=new Array(2);
 		squares[index][1]=rekt.top+10;
@@ -283,6 +290,7 @@ function rInt(min,max){
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Array of chip objects that are placed on each cell of the roulette board
 var chips=new Array(48);
 
 // Variable for storing the currently placed chips
@@ -314,19 +322,19 @@ function placeIndividualChip(id){
     img.src = chipImages[betAmount] || casinoChipRed; // Default to red if undefined
 	img.style.zIndex="0";
 	img.style.position="absolute";
-	
+
 	var rX=rInt(-8,8);
 	var rY=rInt(50,55);
-	
+
 	// Adjust for viewport scroll and scaling
 	img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 	img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-	
+
 	img.style.width="20px";
 	img.style.pointerEvents="none";
-	
+
 	document.body.appendChild(img);
-	
+
 	if(chips[id]==null)chips[id]=new Array(0);
 	chips[id].push(img);
 
@@ -338,7 +346,7 @@ function placeIndividualChip(id){
 function initializePlacedChips(){
 	// Call the placed_chips_request Ruby function
 	fetch('/roulette/placed_chips_request', {
-		method: 'POST', 
+		method: 'POST',
 		headers: {
 		  'Content-Type': 'application/json',
 		  'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -375,21 +383,21 @@ function initializePlacedChips(){
 			img.src = chipImages[amount] || casinoChipRed;
 			img.style.zIndex="0";
 			img.style.position="absolute";
-			
+
 			var rX=rInt(-8,8);
 			var rY=rInt(50,55);
-			
+
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 			img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
 			//img.style.left=(squares[id][0]+rX)+"px";
 			//img.style.top=(squares[id][1]+rY)+"px";
-			
+
 			img.style.width="20px";
 			img.style.pointerEvents="none";
-			
+
 			document.body.appendChild(img);
-			
+
 			if(chips[id]==null)chips[id]=new Array(0);
 			chips[id].push(img);
 		  }
@@ -434,25 +442,25 @@ function placeChips(){
 		img.src = chipImages[amount] || casinoChipRed;
 		img.style.zIndex="0";
 		img.style.position="absolute";
-		
+
 		var rX=rInt(-8,8);
 		var rY=rInt(50,55);
-		
+
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 		img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
 		//img.style.left=(squares[id][0]+rX)+"px";
 		//img.style.top=(squares[id][1]+rY)+"px";
-		
+
 		img.style.width="20px";
 		img.style.pointerEvents="none";
-		
+
 		document.body.appendChild(img);
-		
+
 		if(chips[id]==null)chips[id]=new Array(0);
 		chips[id].push(img);
 	}
-	
+
 }
 
 // Function to check if the chat box is clicked so that we can reposition chips
@@ -540,7 +548,7 @@ function spinWheel(){
 	// Get the winning number stored in the server
 	var randomNumber = Math.floor(Math.random() * 36);
 	fetch('/roulette/winning_num_request', {
-		method: 'GET', 
+		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 			'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
@@ -548,12 +556,10 @@ function spinWheel(){
 	})
 	.then(response => response.json())
 	.then(data => {
-		//console.log(data)
 		randomNumber = data.winning_num
 
 		// Animate the ball
 		var color = null;
-		//console.log(randomNumber)
 		$inner.attr('data-spinto', randomNumber).find('li:nth-child('+ randomNumber +') input').prop('checked','checked');
 
 		// Remove the place holder
@@ -571,16 +577,16 @@ function spinWheel(){
 		// Timeout function to remove the disabled attribute when the roulette animation has stopped
 		setTimeout(function() {
 			$reset.removeClass('disabled').prop('disabled','');
-			
+
 			// Replace the mask value with the value the ball landed on and the colour
 			if($.inArray(randomNumber, red) !== -1){ color = 'red'} else { color = 'black'};
 			if(randomNumber == 0){color = 'green'};
-			
+
 			$('.result-number').text(randomNumber);
 			$('.result-color').text(color);
 			$('.result').css({'background-color': ''+color+''});
 			$data.addClass('reveal');
-			$inner.addClass('rest');	
+			$inner.addClass('rest');
 		}, timer);
 
 		// Timeout function to reset the ball after a few seconds
@@ -614,8 +620,10 @@ const chipData = [
 	{ src: casinoChipBlack, value: 1000}
 ];
 
+// Finds the chipContainer UI element in the HTML
 const chipContainer = document.getElementById("chipContainer");
 
+// Dynamically append the chips to the chip container so that the user can switch bet amounts
 chipData.forEach((chipInfo, index) => {
 	const chip = document.createElement("img");
 	chip.src = chipInfo.src;
@@ -642,8 +650,8 @@ chipData.forEach((chipInfo, index) => {
 // Call placeChips() initially if you come to the page for the first time
 initializePlacedChips()
 
+// Variables for tracking game state, bet amount, and roulette countdown timers
 var rouletteInterval = setInterval(updateRouletteStartTimer, 1000);
 var rouletteInPlay = false;
 let betAmount = 1 // Start with red chip by default
-//var chipInterval = setInterval(placeChips, 10000)
 var hovering=0;
