@@ -2,10 +2,10 @@
 class Horse < ApplicationRecord
   has_many :wagers, dependent: :destroy
 
-  NAMES        = ['Joey', 'Seabiscuit', 'Khan', 'Maximus', 'Frou Frou', 'Man o\'war'].freeze
+  NAMES        = ['Joey', 'Seabiscuit', 'Khan', 'Maximus', 'Donkey', 'Man o\'war'].freeze
   IMAGES       = ['horse1.png', 'horse2.png', 'horse3.png', 'horse4.png', 'horse5.png', 'horse6.png'].freeze
   SPEEDS       = (0..8).freeze
-  ODDS         = (3..5).freeze
+  ODDS         = (4..5).freeze
 
   BASE_SPEED   = 5
 
@@ -14,9 +14,9 @@ class Horse < ApplicationRecord
     name          = NAMES[horse_index]      # Random name for horse
     image         = IMAGES[horse_index]     # Random image of the horse
     speed         = rand(SPEEDS) # Random speed, this tells us if horse is gonna win the race
-    straight_odds = rand(ODDS) + 0.01 # Random odds for payout if horse gets 1st, 2nd or 3rd
+    straight_odds = rand(ODDS) + 0.01 + rand # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
     place_odds    = straight_odds / 2.0 # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
-    show_odds     = straight_odds / 3.0 # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
+    show_odds     = straight_odds / 3.0 # Random odds for payout if horse gets 1st, 2nd or 3rd
 
     # Round them out to be whole numbers
     straight_odds = straight_odds.round(1)

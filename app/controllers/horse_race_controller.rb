@@ -39,7 +39,7 @@ class HorseRaceController < ApplicationController
   def submit_bet
     wager = create_wager(params)
 
-    return unless valid_wager(wager)
+    return false unless valid_wager(wager)
 
     wager.save # add wager to database
 

@@ -56,7 +56,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     user = User.find_by(username: "one1")
 
     winner, = Horse.limit(3)
-    place_bet({ horse: winner.id, kind: kind, amount: 0.00 })
+    place_bet({ horse: winner.id, kind: kind, amount: 1.00 })
 
     make_horse_finish(winner, kind)
 
@@ -69,7 +69,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     user = User.find_by(username: "one1")
 
     _, winner, = Horse.limit(3)
-    place_bet({ horse: winner.id, kind: kind, amount: 0.00 })
+    place_bet({ horse: winner.id, kind: kind, amount: 1.00 })
 
     make_horse_finish(winner, kind)
 
@@ -82,7 +82,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     user = User.find_by(username: "one1")
 
     _, _, winner, = Horse.limit(3)
-    place_bet({ horse: winner.id, kind: kind, amount: 0.00 })
+    place_bet({ horse: winner.id, kind: kind, amount: 1.00 })
 
     make_horse_finish(winner, kind)
 
@@ -94,9 +94,9 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     user = User.find_by(username: "one1")
 
     straight, place, show = Horse.limit(3)
-    place_bet({ horse: straight.id, kind: :straight, amount: 0.00 })
-    place_bet({ horse: place.id, kind: :place, amount: 0.00 })
-    place_bet({ horse: show.id, kind: :show, amount: 0.00 })
+    place_bet({ horse: straight.id, kind: :straight, amount: 1.00 })
+    place_bet({ horse: place.id, kind: :place, amount: 1.00 })
+    place_bet({ horse: show.id, kind: :show, amount: 1.00 })
 
     make_horse_finish(straight, :straight)
     make_horse_finish(place, :straight)
@@ -107,17 +107,17 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
 
   test "should place show bet" do
     login
-    place_bet({ horse: Horse.first.id, kind: :show, amount: 0.0 })
+    place_bet({ horse: Horse.first.id, kind: :show, amount: 1.0 })
   end
 
   test "should place place bet" do
     login
-    place_bet({ horse: Horse.first.id, kind: :place, amount: 0.0 })
+    place_bet({ horse: Horse.first.id, kind: :place, amount: 1.0 })
   end
 
   test "should place straight bet" do
     login
-    place_bet({ horse: Horse.first.id, kind: :straight, amount: 0.0 })
+    place_bet({ horse: Horse.first.id, kind: :straight, amount: 1.0 })
   end
 
   test "should place multiple bets on same horse" do
@@ -126,8 +126,65 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     place_bet({ horse: Horse.first.id, kind: :place, amount: 1.0 })
     place_bet({ horse: Horse.first.id, kind: :straight, amount: 1.0 })
 
-    # assert Wager.count == 3 # For some reason the bets are not being placed in the backend
-    # Likely has something to do with how we close the betting past a certain point
+    assert Wager.count == 3
+  end
+
+  test "Betting on one generated horses" do
+    Horse.remove_random_horses(Horse.count)
+    assert Horse.count.zero?
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    assert Horse.count == 6
+
+    # Wagers are placed
+    login
+    place_bet({ horse: Horse.first.id, kind: :show, amount: 1.0 })
+
+    assert Wager.count == 1
+  end
+
+  test "Betting on multiple generated horses" do
+    Horse.remove_random_horses(Horse.count)
+    assert Horse.count.zero?
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    assert Horse.count == 6
+
+    # Wagers are placed
+    login
+    place_bet({ horse: Horse.first.id, kind: :show, amount: 1.0 })
+    place_bet({ horse: Horse.second.id, kind: :place, amount: 1.0 })
+    place_bet({ horse: Horse.third.id, kind: :straight, amount: 1.0 })
+
+    assert Wager.count == 3
+  end
+
+  test "Betting on one generated horse multiple times" do
+    Horse.remove_random_horses(Horse.count)
+    assert Horse.count.zero?
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    Horse.create_new_horse
+    assert Horse.count == 6
+
+    # Wagers are placed
+    login
+    place_bet({ horse: Horse.first.id, kind: :show, amount: 1.0 })
+    place_bet({ horse: Horse.first.id, kind: :place, amount: 1.0 })
+    place_bet({ horse: Horse.first.id, kind: :straight, amount: 1.0 })
+
+    assert Wager.count == 3
   end
 
   test "should place multiple bets on different horses" do
@@ -135,8 +192,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     place_bet({ horse: Horse.first.id, kind: :show, amount: 1.0 })
     place_bet({ horse: Horse.second.id, kind: :place, amount: 1.0 })
 
-    # assert Wager.count == 2 # For some reason the bets are not being placed in the backend
-    # Likely has something to do with how we close the betting past a certain point
+    assert Wager.count == 2
   end
 
   test "should pay user accordingly for sucessful first placed horse show wager" do
