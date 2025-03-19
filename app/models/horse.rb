@@ -2,7 +2,7 @@
 class Horse < ApplicationRecord
   has_many :wagers, dependent: :destroy
 
-  NAMES        = ['Joey', 'Seabiscuit', 'Khan', 'Maximus', 'Frou Frou', 'The Black Stallion'].freeze
+  NAMES        = ['Joey', 'Seabiscuit', 'Khan', 'Maximus', 'Frou Frou', 'Man o\'war'].freeze
   IMAGES       = ['horse1.png', 'horse2.png', 'horse3.png', 'horse4.png', 'horse5.png', 'horse6.png'].freeze
   SPEEDS       = (0..8).freeze
   ODDS         = (3..5).freeze
@@ -10,7 +10,7 @@ class Horse < ApplicationRecord
   BASE_SPEED   = 5
 
   def self.random # rubocop:disable Metrics/AbcSize
-    horse_index = Horse.count % IMAGES.length()
+    horse_index = Horse.count % IMAGES.length
     name          = NAMES[horse_index]      # Random name for horse
     image         = IMAGES[horse_index]     # Random image of the horse
     speed         = rand(SPEEDS) # Random speed, this tells us if horse is gonna win the race
@@ -22,7 +22,6 @@ class Horse < ApplicationRecord
     straight_odds = straight_odds.round(1)
     place_odds = place_odds.round(1)
     show_odds = show_odds.round(1)
-
 
     Horse.new(name: name, image: image, speed: speed, show_odds: show_odds, place_odds: place_odds, straight_odds: straight_odds, position: 0)
   end
@@ -89,6 +88,11 @@ class Horse < ApplicationRecord
     winning_wagers = wagers.select { |wager| wager.hits?(placing) } # Wagers that hit based on wager kind and actual horse placing
     winning_wagers.each(&:fufill) # Pay the money
 
+    wagers.destroy_all
+  end
+
+  def self.clear_all_wagers
+    wagers = Wager.all # Wagers on me (me being the horse)
     wagers.destroy_all
   end
 

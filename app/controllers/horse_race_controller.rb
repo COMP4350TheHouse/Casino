@@ -17,23 +17,29 @@ class HorseRaceController < ApplicationController
     redirect_to horse_race_index_path
   end
 
-  def submit_bet # rubocop:disable Metrics/AbcSize
-    wager = create_wager(params)
-
+  def valid_wager(wager)
     if wager.amount <= 0
-        puts "Wager must be greater than 0"
-        return
+      puts "Wager must be greater than 0"
+      return false
     end
 
     unless accepting_bets?
       puts "No longer accepting bets"
-      return
+      return false
     end
 
     if Current.session.user.balance < wager.amount
       puts "Too broke to place wager"
-      return
+      return false
     end
+
+    true
+  end
+
+  def submit_bet
+    wager = create_wager(params)
+
+    return unless valid_wager(wager)
 
     wager.save # add wager to database
 
