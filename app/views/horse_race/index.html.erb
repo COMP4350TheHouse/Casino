@@ -1,0 +1,114 @@
+
+<%= stylesheet_link_tag 'horse_race_index.css', media: 'all' %>
+
+<style>
+  @font-face {
+    font-family: "Caveat";
+    src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
+  }
+
+  .race_image {
+      position: relative;
+      background-image: url('<%= asset_path "track.png" %>');
+      animation-name: parallaxImage;
+        animation-delay: 0s;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-play-state: paused;
+
+      left: 0px;
+      width: 200%;
+      height: 230px;
+  }
+  .paper {
+    position: relative;
+    margin: 2rem auto;
+    width: fit-content;
+    min-height: 30rem;
+    padding: 1rem;
+    padding-top: 0;
+
+    box-shadow: 0 0 1rem #000000b0;
+
+    background-image: url('<%= asset_path "paper.png" %>');
+  }
+  .balance_div {
+    width: 100%;
+  }
+</style>
+
+
+<div>
+    <div class="race_background">
+        <div id="race_track" class="race_image"></div>
+        <% Horse.all.each_with_index do |horse, index| %>
+            <%= render 'shared/horse_race/horse', horse: horse, track_index: index %>
+        <% end %>
+    </div>
+
+    <div class="horse_bet_super_grid">
+        <div id="horse_wager_placed_div" class="horse_wager_placed_div">
+            <div class="paper">
+                <%= image_tag "pin.png", :class => "pin" %>
+                <header class="horse_betting_header">Bets</header>
+                <table class="horse_wager_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Horse</th>
+                            <th scope="col">Bet Type</th>
+                            <th scope="col">Bet Amount</th>
+                            <th scope="col">Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="horse_wager_placed_body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="center_grid_item_div">
+            <div class="paper">
+                <%= image_tag "pin.png", :class => "pin" %>
+                <div class="balance_div">
+                    <a style="float: left"> Time till next race: <a id="time_to_next_race" style="float:left">20</a></a>
+                    <a id="balance_display" style="float: right">Balance: $<%= Current.session.user.balance %></a>
+                </div>
+                <div id="horse_betting_div">
+                    <header class="horse_betting_header">Place your bets!</header>
+                    <div id="main_betting_menu" class="horse_betting_menu">
+                        <% Horse.all.each do |horse| %>
+                            <%= render 'shared/horse_race/bet/card', horse: horse %>
+                        <% end %>
+                    </div>
+                </div>
+                <div id="horse_closed_betting_div">
+                    <%= image_tag "betting_closed.png", :class => "betting_closed_stamp" %>
+                </div>
+            </div>
+        </div>
+
+        <div id="horse_wager_payout_div" class="horse_wager_payout_div">
+            <div class="paper">
+                <%= image_tag "pin.png", :class => "pin" %>
+                <header class="horse_betting_header">Payouts</header>
+                <table class="horse_wager_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Horse</th>
+                            <th scope="col">Bet Type</th>
+                            <th scope="col">Payout</th>
+                        </tr>
+                    </thead>
+                    <tbody id="horse_wager_payout_body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    <% if @debug %>
+        <%= button_to "Restart Race", restart_race_path, method: :post %>
+    <% end %>
+
+</div>

@@ -4,6 +4,7 @@ one:
   email_address: one@example.com
   username: one1
   password_digest: <%= password_digest %>
+  balance: 100
 
 two:
   email_address: two@example.com

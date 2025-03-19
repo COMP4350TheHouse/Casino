@@ -5,7 +5,7 @@ class ChatController < ApplicationController
     channel = params[:channel]
     channel_map = {
       "Global" => "global_channel",
-      "Horse Race" => "horse_race_channel",
+      "Horse Race" => "horse_race_chat_channel",
       "Roulette" => "roulette_channel"
     }
 

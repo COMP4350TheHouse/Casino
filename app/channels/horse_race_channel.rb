@@ -1,4 +1,4 @@
-# Channel used for horse race messages
+# Updates Horse Race Positions
 class HorseRaceChannel < ApplicationCable::Channel
   def subscribed
     stream_from "horse_race_channel"

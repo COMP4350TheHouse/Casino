@@ -1,12 +1,55 @@
+@font-face {
+    font-family: "Caveat";
+    font-weight: normal;
+    src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
+}
+
 .horse_name_div {
     font-size: 30px;
     font-weight: bold;
     height:50px;
 }
 
+.horse_bet_super_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.center_grid_item_div {
+    position: relative;
+}
+
+#horse_closed_betting_div {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.horse_bet_grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.horse_card {
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .horse_name {
     height:50px;
     vertical-align:middle;
+
+    font-family: "Caveat";
+    font-size: xx-large;
 }
 
 .bet_input {
@@ -19,6 +62,13 @@
     top:50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #1f1f1fc0;
+
+    font-family: "Caveat";
+    font-size: large;
 }
 
 .bet_ratio_div {
@@ -31,8 +81,11 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 
-    background-color: #FF0000;
+    font-family: "Caveat";
+    font-size: x-large;
+    color: #d60000c0;
 }
+
 
 .bet_ratio {
     text-align: center;
@@ -63,20 +116,29 @@
     width: 325px;
     height:230px;
 
-    background-color: #BBBBBB;
     margin: 5px;
 
     outline-width: 2px;
     outline-color: #FF0000;
 }
 
-/* Horse Images */
+.horse_betting_menu {
+    position: relative;
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, auto);
+
+    width: 700px;
+    margin: 0 auto;
+
+    padding: 10px;
+}
+
 .horse_img {
     position: absolute;
     top: 40px;
 
     left: 50%;
-    width: 200px;
     height: 100px;
 
     -ms-transform: translateX(-50%);
@@ -107,13 +169,18 @@
     padding: 5px 0;
     border-radius: 6px;
 
+    font-family: sans-serif;
+    font-size: small;
+
     /* Animation */
     position: absolute;
     z-index: 1;
 }
 
-.place_button:hover .tooltiptext,
-.straight_button:hover .tooltiptext {
+
+
+.place_button_div:hover .tooltiptext,
+.straight_button_div:hover .tooltiptext {
     visibility: visible;
     animation-name: tooltip-opacity;
     animation-iteration-count: 1;
@@ -157,13 +224,20 @@ input::-webkit-inner-spin-button {
 
 /* Tool Tips on the bet buttons */
 .place_button {
-    background-color: #00FF00;
+    background-color: #00740020;
+    border: 2px solid #284728;
     position: absolute;
 
     right: 0px;
     bottom: 0px;
     width: 100px;
     height: 30px;
+
+    color: #284728;
+}
+
+.place_button:hover {
+    background-color: #00740040;
 }
 
 .place_div {
@@ -174,6 +248,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height: 30px;
 }
+
 .show_div {
     position: absolute;
     left: 0px;
@@ -182,6 +257,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     height: 30px;
 }
+
 .straight_div {
     position: absolute;
     left: 0px;
