@@ -2,11 +2,6 @@
 <%= stylesheet_link_tag 'horse_race_index.css', media: 'all' %>
 
 <style>
-
-  body {
-    cursor: url('<%= asset_path "horse1.png" %>'), auto;
-  }
-
   @font-face {
     font-family: "Caveat";
     src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
@@ -31,12 +26,15 @@
     margin: 2rem auto;
     width: fit-content;
     min-height: 30rem;
-    padding: 2rem;
+    padding: 1rem;
     padding-top: 0;
 
     box-shadow: 0 0 1rem #000000b0;
 
     background-image: url('<%= asset_path "paper.png" %>');
+  }
+  .balance_div {
+    width: 100%;
   }
 </style>
 
@@ -51,7 +49,6 @@
 
     <div class="horse_bet_super_grid">
         <div id="horse_wager_placed_div" class="horse_wager_placed_div">
-            <%# <div class="wood_sign"> %>
             <div class="paper">
                 <%= image_tag "pin.png", :class => "pin" %>
                 <header class="horse_betting_header">Bets</header>
@@ -72,7 +69,10 @@
         <div class="center_grid_item_div">
             <div class="paper">
                 <%= image_tag "pin.png", :class => "pin" %>
-                <div class="balance_div"><a class="balance">Balance: $<%= Current.session.user.balance %></a></div>
+                <div class="balance_div">
+                    <a style="float: left"> Time till next race: <a id="time_to_next_race" style="float:left">20</a></a>
+                    <a id="balance_display" style="float: right">Balance: $<%= Current.session.user.balance %></a>
+                </div>
                 <div id="horse_betting_div">
                     <header class="horse_betting_header">Place your bets!</header>
                     <div id="main_betting_menu" class="horse_betting_menu">

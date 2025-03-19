@@ -5,9 +5,9 @@
 <%= form.hidden_field :kind,  value: kind %>
 <% form.label horse.id, class: "bet_input" %>
 <%= form.hidden_field :horse, value: horse.id %>
-<%= number_field_tag :amount, nil, step: 0.01, in: 1..Current.session.user.balance, id: "bet_input_#{horse.id}_#{kind}", class: "bet_input", placeholder: "$0.00" %>
-<%= form.label "#{'%5.0f' % horse.odds(kind)}x", id: "bet_ratio_#{horse.id}_#{kind}", class: "bet_ratio_div" %>
-<div class="place_button_div">
+<%= number_field_tag :amount, nil, step: 0.01, in: 1..Current.session.user.balance, id: "bet_input_#{horse.id}_#{kind}", class: "bet_input" %>
+<%= form.label "#{'%5.1f' % horse.odds(kind)}x", id: "bet_ratio_#{horse.id}_#{kind}", class: "bet_ratio_div" %>
+<div class="place_button">
     <%= submit_tag "#{kind.to_s.capitalize} Bet",  class: "place_button" %>
     <span class="tooltiptext"> <%= Wager.tooltip(kind) %> </span>
 </div>
@@ -16,26 +16,35 @@
 <script>
 
 document.getElementById("horse_bet_form_" + "<%= horse.id %>" + "_<%= kind %>").addEventListener('submit', function() {
-  let tbodyRef = document.getElementById('horse_wager_placed_body');
+  let tbody_ref = document.getElementById('horse_wager_placed_body');
+  let bet_input_ref = document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>");
+  let balance_display = document.getElementById("balance_display");
 
-  if (document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value == '') {
+  // We must manually check that the wagers are non-empty because this does not get a success response from the backend
+  if (bet_input_ref.value == '') {
     return;
   }
 
-  let row = tbodyRef.insertRow();
+  let row = tbody_ref.insertRow();
   let cell1 = row.insertCell(0);
   let cell2 = row.insertCell(1);
   let cell3 = row.insertCell(2);
   let cell4 = row.insertCell(3);
 
+  // The Table is organized by Name, Kind of Bet, Value of the bet, The betting odds
   cell1.innerHTML = "<%= horse.name %>"
   cell2.innerHTML = "<%= kind %>"
-  cell3.innerHTML = document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value;
+  cell3.innerHTML = bet_input_ref.value;
   cell4.innerHTML = "<%= horse.odds(kind) %>";
 
+  // Delays clearing the input for a moment so the request sent to the controller isn't empty
   setTimeout(function() {
-    document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>").value = '';
-  }, 20); // Just has to delay a little bit
+    bet_input_ref.value = '';
+  }, 20);
+
+  // Updates the balance display manually as Rails does not do this automatically
+  let new_balance = balance_display.innerText.substr(10) - bet_input_ref.value;
+  balance_display.innerText = "Balance: $" + new_balance;
 });
 
 </script>

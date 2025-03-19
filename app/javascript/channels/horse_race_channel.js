@@ -12,6 +12,9 @@ consumer.subscriptions.create("HorseRaceChannel", {
   received(data) {
     const horses = data.message.horses;
     const resetting = data.message.resetting;
+    const time_to_next_race = data.message.time_to_next_race;
+
+
 
     const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
     const POSITION_WHEN_BETS_CLOSE = 70;
@@ -56,29 +59,21 @@ consumer.subscriptions.create("HorseRaceChannel", {
 
     const race_track = document.getElementById("race_track");
 
-    // Betting is closed
+    // Conditionally renders the betting open / closed menus
     if (is_betting_closed) {
-        // document.getElementById("main_betting_menu").style.visibility = "hidden";
-        // document.getElementById("horse_wager_placed_div").style.visibility = "hidden";
-
-        // document.getElementById("horse_wager_payout_div").style.visibility = "visible";
         document.getElementById("horse_betting_div").style.visibility = "hidden";
         document.getElementById("horse_closed_betting_div").style.visibility = "visible";
     } else {
-    // Betting is not closed
         document.getElementById("horse_betting_div").style.visibility = "visible";
         document.getElementById("horse_closed_betting_div").style.visibility = "hidden";
-
-        // document.getElementById("main_betting_menu").style.visibility = "visible";
-        // document.getElementById("horse_wager_placed_div").style.visibility = "visible";
-
-        // document.getElementById("horse_wager_payout_div").style.visibility = "hidden";
     }
 
+    // Resets the race (Moves the camera, clears the tables)
+    // Horses are slide back using the same mechanism that moves them forward
+    // Countdown timer is set by the data passed, so it does not need a reset
     if (resetting) {
         // Clear the tables
         document.getElementById("horse_wager_placed_body").innerHTML = "";
-
         document.getElementById("horse_wager_payout_body").innerHTML = "";
 
         // Move the track back so it looks less janky
@@ -88,10 +83,24 @@ consumer.subscriptions.create("HorseRaceChannel", {
         }, ANIMATION_PAUSE_DELAY);
     }
 
+    /// Countdown clock functionality
+    const ONE_SECOND = 1000;
+    document.getElementById("time_to_next_race").innerHTML = time_to_next_race;
+
+    // When the race is on it says "Racing", so we can't -1 in this case
+    if (Number.isInteger(time_to_next_race)) {
+        setTimeout(function () {
+            document.getElementById("time_to_next_race").innerHTML = time_to_next_race - 1;
+        }, ONE_SECOND);
+    }
+
+
+    // Initiates the slow-mo effect
     if (horse_has_finished) {
+        // Stops the track as the horses are about to hit the finish line
         race_track.style.animationPlayState = "paused";
 
-        // Slow the running animations
+        // Slows the running animations for the slow-mo effect
         index = 0
         horses.forEach(horse => {
             const horseImg = horseDivs[index];

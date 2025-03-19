@@ -20,6 +20,11 @@ class HorseRaceController < ApplicationController
   def submit_bet # rubocop:disable Metrics/AbcSize
     wager = create_wager(params)
 
+    if wager.amount <= 0
+        puts "Wager must be greater than 0"
+        return
+    end
+
     unless accepting_bets?
       puts "No longer accepting bets"
       return
@@ -34,9 +39,6 @@ class HorseRaceController < ApplicationController
 
     Current.session.user.balance -= wager.amount # remove money from the user's bankaccount
     Current.session.user.save # update user
-
-    # TODO! Figure out why I need to fake a redirect response
-    # render json: { balance: Current.session.user.balance, valid_bet: true }, status: 303
   end
 
   def create_wager(params)

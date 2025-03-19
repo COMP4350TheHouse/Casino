@@ -2,32 +2,29 @@
 class Horse < ApplicationRecord
   has_many :wagers, dependent: :destroy
 
-  NAMES        = (1..100).map { |x| "MyHorse#{x}" }
-  IMAGES       = ['horse1.png'].freeze
+  NAMES        = ['Joey', 'Seabiscuit', 'Khan', 'Maximus', 'Frou Frou', 'The Black Stallion'].freeze
+  IMAGES       = ['horse1.png', 'horse2.png', 'horse3.png', 'horse4.png', 'horse5.png', 'horse6.png'].freeze
   SPEEDS       = (0..8).freeze
-  TIMINGS      = %w[linear ease ease-in ease-out ease-in-out].freeze
-  ODDS         = (3..6).freeze
+  ODDS         = (3..5).freeze
 
   BASE_SPEED   = 5
 
   def self.random # rubocop:disable Metrics/AbcSize
-    name          = NAMES.sample      # Random name for horse
-    image         = IMAGES.sample     # Random image of the horse
-    speed         = rand(SPEEDS) + rand # Random speed, this tells us if horse is gonna win the race
-    timing        = TIMINGS.sample # Random timing so horses move in interesting ways
-    straight_odds = rand(ODDS) + rand # Random odds for payout if horse gets 1st, 2nd or 3rd
-    place_odds    = straight_odds / 2 + rand # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
-    show_odds     = straight_odds / 3 + rand # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
+    horse_index = Horse.count % IMAGES.length()
+    name          = NAMES[horse_index]      # Random name for horse
+    image         = IMAGES[horse_index]     # Random image of the horse
+    speed         = rand(SPEEDS) # Random speed, this tells us if horse is gonna win the race
+    straight_odds = rand(ODDS) + 0.01 # Random odds for payout if horse gets 1st, 2nd or 3rd
+    place_odds    = straight_odds / 2.0 # Random odds for payout if horse gets 1st or 2nd this has to be bigger than show_odds
+    show_odds     = straight_odds / 3.0 # Random odds for payout if horse gets 1st, this has to be bigger than place_odds
 
     # Round them out to be whole numbers
-    straight_odds = straight_odds.round
-    place_odds = place_odds.round
-    show_odds = show_odds.round
+    straight_odds = straight_odds.round(1)
+    place_odds = place_odds.round(1)
+    show_odds = show_odds.round(1)
 
-    show_odds = 2 if show_odds == 1
-    place_odds = 2 if place_odds == 1
 
-    Horse.new(name: name, image: image, speed: speed, timing: timing, show_odds: show_odds, place_odds: place_odds, straight_odds: straight_odds, position: 0)
+    Horse.new(name: name, image: image, speed: speed, show_odds: show_odds, place_odds: place_odds, straight_odds: straight_odds, position: 0)
   end
 
   # Remove Horse at random

@@ -1,5 +1,6 @@
 @font-face {
     font-family: "Caveat";
+    font-weight: normal;
     src: url('<%= font_path "Caveat-VariableFont_wght.ttf" %>')
 }
 
@@ -11,7 +12,6 @@
 
 .horse_bet_super_grid {
     display: grid;
-    /* align-items: center; */
     grid-template-columns: repeat(3, 1fr);
 }
 
@@ -68,7 +68,7 @@
     border-bottom: 1px solid #1f1f1fc0;
 
     font-family: "Caveat";
-    font-size: x-large;
+    font-size: large;
 }
 
 .bet_ratio_div {
@@ -134,7 +134,6 @@
     padding: 10px;
 }
 
-/* Horse Images */
 .horse_img {
     position: absolute;
     top: 40px;

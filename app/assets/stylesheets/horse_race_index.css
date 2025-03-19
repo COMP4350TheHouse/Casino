@@ -11,12 +11,14 @@
     font-family: "Caveat";
     font-size: x-large;
 }
+
 .balance {
     margin: auto;
     text-align: center;
 }
 
 .race_background {
+    overflow: hidden;
     width: 100%;
 }
 
