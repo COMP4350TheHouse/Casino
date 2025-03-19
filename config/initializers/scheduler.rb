@@ -9,7 +9,7 @@ MAX_TICK_DELAY = 10
 tick_delay = 0
 
 scheduler.every '2s' do
-  time_to_next_race = tick_delay == 0 ? "Racing" : tick_delay * 2
+  time_to_next_race = tick_delay.zero? ? "Racing" : tick_delay * 2
 
   race_message = {
     horses: Horse.race_message,
