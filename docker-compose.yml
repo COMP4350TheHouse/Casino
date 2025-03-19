@@ -17,7 +17,7 @@ services:
       retries: 20
 
   web:
-    image: comp4350thehouse/casino
+    image: comp4350thehouse/casino:main
     build: .
     environment:
       DB_HOST: db
