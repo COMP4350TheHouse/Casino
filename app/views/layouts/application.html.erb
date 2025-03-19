@@ -17,13 +17,28 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag 'horse_betting.css', media: 'all' %>
+    <%= stylesheet_link_tag 'application.css', media: 'all' %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+    <body id="main-body-tag">
+      <div class="main-header">
+        <%= render 'shared/header'%>
+      </div>
+      <div class = "main-content">
+        <%= yield %>
+      </div>
+      <div id = "main-chat">
+          <!-- TODO! Move this into the partial -->
+          <% if on_lobby_page? %>
+              <%= render 'shared/chat', channels: ['Global'], class: "chat"%>
+          <% end %>
+          <% if on_horse_racing? %>
+              <%= render 'shared/chat', channels: ['Horse Race', 'Global'], class: "chat"%>
+          <% end %>
+          <% if on_roulette? %>
+              <%= render 'shared/chat', channels: ['Roulette', 'Global'], class: "chat"%>
+          <% end %>
+      </div>
   </body>
 </html>

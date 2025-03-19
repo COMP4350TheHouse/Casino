@@ -1,0 +1,110 @@
+/* Set some variables for our colour scheme */
+:root {
+  --light-gold: #ffd700;
+  --dark-gold: #d3ac00;
+  --magenta-purple: #8e2b97;
+}
+
+.header-partial {
+  overflow: hidden;
+  background-image: linear-gradient(to bottom right, var(--light-purple), var(--dark-purple) );
+  padding: 20px 10px;
+  display: grid;
+  grid-template-areas: 
+      "top-left top-middle top-right"
+      "navbar navbar navbar";
+  overflow: visible;
+  border-bottom: solid 3px;
+  border-color: var(--dark-gold)
+}
+
+.header-navigation {
+  grid-area: navbar;
+}
+
+.header-partial a{
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header-partial button {
+  all: unset;
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.header-chat-div {
+  grid-area: 'top-right';
+  display: grid;
+  width: fit-content;
+  height: fit-content;
+  justify-self: right;
+  color: white;
+  transition: color ease .25s;
+}
+
+.chat-icon {
+  fill: white;
+  width: 30px;
+  height: 30px;
+  border: none;
+  transition: fill ease .25s;
+}
+
+.header-chat-div:hover {
+  color: var(--dark-gold);
+}
+.header-chat-div:hover .chat-icon{
+  fill: var(--dark-gold);;
+}
+
+.header-account-section {
+  grid-area: 'top-left';
+  width: max-content;
+  justify-self: left;
+}
+
+.header-title {
+  grid-area: 'top-middle';
+  justify-self: center;
+  color: var(--light-gold);
+}
+
+.header-partial a:hover {
+  background-color: var(--magenta-purple);
+  color: var(--light-gold);
+  opacity: 100%;
+}
+
+.header-partial button:hover {
+  background-color: var(--magenta-purple);
+  color:var(--light-gold);
+  opacity: 100%;
+}
+
+.header-partial a.active {
+  background-color: rgb(100,0,0);
+  color: var(--light-gold);
+}
+
+/* Stack the header vertically when the viewport is too small */
+@media screen and (max-width: 500px) {
+  .header-partial a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}

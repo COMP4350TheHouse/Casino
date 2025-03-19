@@ -1,13 +1,33 @@
-<h1>Create your account</h1>
+<%= stylesheet_link_tag 'card-layout.css', media: 'all' %>
 
-<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
+<div class="card-layout">
+  <h1>Create your account</h1>
 
-<%= form_with model: @user, url: users_path do |form| %>
-  <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username", placeholder: "Username", value: params[:username] %><br>
-  <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: "Email", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: "Password", maxlength: 72 %><br>
-  <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "Repeat password", maxlength: 72 %><br>
-  <%= form.submit "Create account" %>
-<% end %>
+  <%= tag.div(flash[:alert], class: "alert") if flash[:alert] %>
 
-Have an account? <%= link_to "Sign in here", new_session_path %>.
+  <%= form_with model: @user, url: users_path do |form| %>
+    <div class="form-section">
+      <label>Username</label>
+      <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username", value: params[:username] %>
+      <p class="form-input-description">Must be between 4 and 16 characters, and can only contain letters, numbers, hyphens, and underscores.</p>
+    </div>
+    <div class="form-section">
+      <label>Email</label>
+      <%= form.email_field :email_address, required: true, autocomplete: "email", value: params[:email_address] %>
+    </div>
+    <div class="form-section">
+      <label>Password</label>
+      <%= form.password_field :password, required: true, autocomplete: "new-password", maxlength: 72 %>
+    </div>
+    <div class="form-section">
+      <label>Confirm password</label>
+      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", maxlength: 72 %>
+    </div>
+    <div class="form-section">
+      <%= form.submit "Create account" %>
+    </div>
+    <div class="form-section">
+      <p>Have an account? <%= link_to "Sign in here.", new_session_path %></p>
+    </div>
+  <% end %>
+</div>

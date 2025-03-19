@@ -21,6 +21,16 @@ class Wager < ApplicationRecord
     tooltip[kind.to_sym]
   end
 
+  def self.type_text(kind)
+    type = {
+      straight: "Straight",
+      place: "Place",
+      show: "Show"
+    }
+
+    type[kind.to_sym]
+  end
+
   # Based on the horse's place did the wager hit?
   def hits?(place)
     case kind.to_sym
@@ -39,7 +49,17 @@ class Wager < ApplicationRecord
   def fufill # rubocop:disable Metrics/AbcSize
     puts "Paying '#{User.find(user_id).username}' $#{format('%.2f', payout)} for a #{kind.to_s.capitalize} bet of on '#{Horse.find(horse_id).name}'"
     user = User.find(user_id)
-    user.balance += payout
+    user.balance += payout.round(2)
     user.save
+
+    ActionCable.server.broadcast("horse_wager_channel", { message: payout_message })
+  end
+
+  def payout_message
+    {
+      horse_name: Horse.find(horse_id).name,
+      payout: payout.round(2),
+      bet_type: Wager.type_text(kind)
+    }
   end
 end

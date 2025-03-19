@@ -1,0 +1,350 @@
+  /* 
+     This code contains references pulled from: https://codepen.io/dadas190/pen/BYpEOa
+     To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations 
+  */
+  
+  /* Makes elements with class 'moving' draggable */
+  div.moving {
+    cursor: move;
+  }
+
+  /* Styles the main roulette page container */
+  .roulette-page {
+    display: flex;
+    flex-direction: column; /* Ensures elements stack vertically */
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    min-block-size: 100dvh; /* Full viewport height */
+    background-image: url('green_casino_felt.jpg'); /* Background texture */
+  }
+  
+  /* Styles the roulette game area/roulette board */
+  .roulette {
+    margin: 40px;
+    background-image: url('green_casino_felt.jpg'); /* Background texture */
+    position: relative;
+    width: 775px;
+    justify-content: center;  /* Centers horizontally */
+    align-items: center;      /* Centers vertically */
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0 auto; /* Centers the element */
+    padding: 0; /* Make sure padding isn't shifting things */
+  }
+  
+  /* Ensures table layout formatting */
+  .roulette table {
+    float: left;
+  }
+  
+  .roulette table,
+  tr {
+    border-collapse: collapse; /* Remove spacing between table borders */
+  }
+  
+  /* Styles for roulette table cells */
+  .roulette td {
+    border-spacing: 0;
+    border-collapse: collapse;
+    border: 2px solid white;
+    width: 50px;
+    height: 46px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    white-space: nowrap;
+    position: relative; /* Makes absolute positioning work inside each cell */
+  }
+  
+  /* Styles for different table sections including number rotation, background colour, and font size */
+  .roulette .sector {
+    background: #1C7022;
+    color: #8EB891;
+  }
+  
+  .roulette .sector .vt {
+    font-size: 15px;
+  }
+  
+  .roulette .num {
+    font-size: 22px;
+  }
+  
+  .roulette .num span {
+    display: block;
+    transform: rotate(270deg);
+  }
+  
+  .roulette .zero {
+    width: 70px;
+    font-size: 56px;
+  }
+  
+  .roulette .empty {
+    border: none;
+  }
+  
+  /* Colors for roulette numbers that belong to GREEN, RED, and BLACK */
+  .roulette .green {
+    background: #1C7022;
+    color: #8EB891;
+  }
+  
+  .roulette .red {
+    background: #A91607;
+    color: #8EB891;
+  }
+  
+  .roulette .black {
+    background: #000300;
+    color: #8EB891;
+  }
+  
+  /* Hover effects for table cells (handled in roulette_logic.js) */
+  .roulette .sector.hover,
+  .roulette .num.hover {
+    font-size: 26px;
+    -moz-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+    -webkit-box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+    box-shadow: inset 0 0 5px #FFF, inset 0 0 5px #FFF;
+  }
+  
+  .roulette .sector.hover .vt {
+    font-size: 17px;
+  }
+  
+  .roulette .sector.hover {
+    font-size: 22px;
+    background: #1C9022 !important;
+    color: #ffffff !important;
+  }
+  
+  .roulette .green.hover {
+    font-size: 68px;
+    background: #3CC042 !important;
+    color: #ffffff !important;
+  }
+  
+  .roulette .red.hover {
+    background: #C00 !important;
+    color: #ffffff !important;
+  }
+  
+  .roulette .black.hover {
+    background: #000 !important;
+    color: #ffffff !important;
+  }
+  
+  /* Orientation adjustments */
+  .roulette .vt {
+    display: block;
+    transform: rotate(270deg);
+    white-space: nowrap;
+  }
+  
+  /* Controls section */
+  .roulette .controls {
+    position: relative;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+  
+  .roulette .controls .btn {
+    position: absolute;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  /* Styling for zero/green button */
+  .roulette .controls .btn-zero {
+    width: 75px;
+    height: 152px;
+    z-index: 0;
+  }
+  
+  /* Various control button sizes */
+  .roulette .controls .h {
+    width: 37px;
+    height: 15px;
+  }
+  
+  .roulette .controls .v {
+    width: 17px;
+    height: 35px;
+  }
+  
+  .roulette .controls .c {
+    width: 17px;
+    height: 15px;
+  }
+  
+  .roulette .controls .m {
+    width: 54px;
+    height: 50px;
+    margin-top: -7px;
+    margin-left: -10px;
+    z-index: 0;
+  }
+  
+  .roulette .controls .ms4 {
+    width: 216px;
+    height: 50px;
+    margin-top: -7px;
+    margin-left: -10px;
+    z-index: 0;
+  }
+  
+  .roulette .controls .ms2 {
+    width: 108px;
+    height: 50px;
+    margin-top: -7px;
+    margin-left: -10px;
+    z-index: 0;
+  }
+  
+  /* Row positioning for roulette board buttons */
+  .roulette .controls .row1 .rh {
+    top: -7px;
+  }
+  
+  .roulette .controls .row1 .rm {
+    top: 8px;
+  }
+  
+  .roulette .controls .row2 .rh {
+    top: 43px;
+  }
+  
+  .roulette .controls .row2 .rm {
+    top: 58px;
+  }
+  
+  .roulette .controls .row3 .rh {
+    top: 93px;
+  }
+  
+  .roulette .controls .row3 .rm {
+    top: 108px;
+  }
+  
+  .roulette .controls .row3 .rb {
+    top: 143px;
+  }
+  
+  .roulette .controls .row4 .rm {
+    top: 158px;
+  }
+  
+  .roulette .controls .row5 .rm {
+    top: 208px;
+  }
+  
+  /* Column positioning for roulette board buttons (each column is 17px wide w/ an additional 20px for each column section) */
+  .roulette .controls .col1 .cv {
+    left: 68px;
+  }
+  
+  .roulette .controls .col1 .cm {
+    left: 85px;
+  }
+  
+  .roulette .controls .col2 .cv {
+    left: 122px;
+  }
+  
+  .roulette .controls .col2 .cm {
+    left: 139px;
+  }
+  
+  .roulette .controls .col3 .cv {
+    left: 176px;
+  }
+  
+  .roulette .controls .col3 .cm {
+    left: 193px;
+  }
+  
+  .roulette .controls .col4 .cv {
+    left: 230px;
+  }
+  
+  .roulette .controls .col4 .cm {
+    left: 247px;
+  }
+  
+  .roulette .controls .col5 .cv {
+    left: 284px;
+  }
+  
+  .roulette .controls .col5 .cm {
+    left: 301px;
+  }
+  
+  .roulette .controls .col6 .cv {
+    left: 338px;
+  }
+  
+  .roulette .controls .col6 .cm {
+    left: 355px;
+  }
+  
+  .roulette .controls .col7 .cv {
+    left: 392px;
+  }
+  
+  .roulette .controls .col7 .cm {
+    left: 409px;
+  }
+  
+  .roulette .controls .col8 .cv {
+    left: 446px;
+  }
+  
+  .roulette .controls .col8 .cm {
+    left: 463px;
+  }
+  
+  .roulette .controls .col9 .cv {
+    left: 500px;
+  }
+  
+  .roulette .controls .col9 .cm {
+    left: 517px;
+  }
+  
+  .roulette .controls .col10 .cv {
+    left: 554px;
+  }
+  
+  .roulette .controls .col10 .cm {
+    left: 571px;
+  }
+  
+  .roulette .controls .col11 .cv {
+    left: 608px;
+  }
+  
+  .roulette .controls .col11 .cm {
+    left: 625px;
+  }
+  
+  .roulette .controls .col12 .cv {
+    left: 662px;
+  }
+  
+  .roulette .controls .col12 .cm {
+    left: 679px;
+  }
+  
+  .roulette .controls .col13 .cm {
+    left: 733px;
+  }
+  
+  /* Hidden elements */
+  .hidden {
+    display: none;
+  }
+  

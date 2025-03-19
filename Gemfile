@@ -1,5 +1,8 @@
 source "https://rubygems.org"
 
+# For sending out ActionCable messages every x amount of time
+gem 'rufus-scheduler'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -16,6 +19,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Inline svg filetypes in erb file types
+gem 'inline_svg'
 
 # Email support (fixes docker build)
 gem "net-smtp", "~> 0.5.0"

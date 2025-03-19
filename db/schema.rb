@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_142055) do
+  create_table "bets", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.float "amount"
+    t.float "bet_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bets_on_user_id"
+  end
+
   create_table "horses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.float "speed"
@@ -21,6 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "show_odds"
+    t.float "position"
   end
 
   create_table "sessions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -32,12 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "test_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
@@ -45,6 +49,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
     t.datetime "updated_at", null: false
     t.decimal "balance", precision: 12, scale: 2, default: "0.0", null: false
     t.string "username", limit: 16, null: false
+    t.boolean "allowance_paid", default: false, null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
@@ -59,6 +64,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_202223) do
     t.index ["user_id"], name: "index_wagers_on_user_id"
   end
 
+  add_foreign_key "bets", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "wagers", "horses"
   add_foreign_key "wagers", "users"

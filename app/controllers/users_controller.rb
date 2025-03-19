@@ -5,26 +5,28 @@ class UsersController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to users_new_path, alert: "Try again later." }
 
+  before_action :user_from_params, only: %i[create]
+
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(user_params)
-    @user.balance = STARTING_BALANCE
-    if @user.save
-      # Start new session after creating account
-      if (user = User.authenticate_by(auth_params))
-        start_new_session_for user
-        redirect_to after_authentication_url
-      else
-        # User created, but authentication failed
-        redirect_to new_session_path, alert: "Please sign in."
-      end
-    else
-      flash[:alert] = "Invalid details"
+    begin
+      @user.save!
+    rescue ActiveRecord::RecordInvalid => e
+      # Send error message to frontend
+      flash[:alert] = e.record.errors.objects.first.full_message
       render :new, status: :unprocessable_entity
+      return
     end
+
+    # Start new session after creating account
+    if (user = User.authenticate_by(auth_params))
+      start_new_session_for user
+    end
+
+    redirect_to after_authentication_url
   end
 
   def show
@@ -36,6 +38,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_from_params
+    @user = User.new(user_params)
+    @user.balance = STARTING_BALANCE
+  end
 
   def user_params
     params.expect(user: [:email_address, :username, :password, :password_confirmation])

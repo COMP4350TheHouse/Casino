@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag 'partials/account_menu.css', media: 'all' %>
+
+<div class = "account-menu">
+    <div class="account-icon-div">
+        <%= inline_svg_tag "account-icon.svg", alt: "account icon", class: "account-icon"%>
+    </div>
+    <div class = "account-menu-dropdown">
+        <% if logged_in?%>
+            <%= link_to "Account Info", user_path(current_session.user.username)%>
+            <%= button_to "Logout", session_path, method: :delete %>
+        <% else %>
+            <%= link_to "Login", new_session_path%>
+        <% end %>
+    </div>
+</div>
