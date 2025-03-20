@@ -110,4 +110,22 @@ class UserTest < ActiveSupport::TestCase
     user.balance = -1
     assert_not user.save
   end
+
+  test "pay allowance increases balance by daily allowance" do
+    user = User.find_by username: "four4"
+    balance = user.balance
+
+    user.pay_allowance
+
+    assert user.balance == balance + User::DAILY_ALLOWANCE
+  end
+
+  test "pay allowance resets allowance paid flag" do
+    user = User.find_by username: "four4"
+    assert_not user.allowance_paid
+
+    user.pay_allowance
+
+    assert user.allowance_paid
+  end
 end
