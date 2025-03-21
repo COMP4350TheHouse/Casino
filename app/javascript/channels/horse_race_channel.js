@@ -10,11 +10,13 @@ consumer.subscriptions.create("HorseRaceChannel", {
   },
 
   received(data) {
+    if (document.getElementById('race_track') == null) {
+      return;
+    }
+
     const horses = data.message.horses;
     const resetting = data.message.resetting;
     const time_to_next_race = data.message.time_to_next_race;
-
-
 
     const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
     const POSITION_WHEN_BETS_CLOSE = 70;

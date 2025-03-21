@@ -12,6 +12,10 @@ consumer.subscriptions.create("HorseWagerChannel", {
   },
 
   received(data) {
+    if (document.getElementById('horse_wager_payout_body') == null) {
+      return;
+    }
+
     let message = data.message;
     // Called when there's incoming data on the websocket for this channel
     let tbodyRef = document.getElementById('horse_wager_payout_body');

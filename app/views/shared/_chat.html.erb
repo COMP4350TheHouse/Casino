@@ -6,10 +6,10 @@
         <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
     </div>
     <%= channels.each_with_index do |channel, index| %>
-        <div class="chat-text" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
+        <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
     <% end %>
     <div class="chat-footer">
-        <%= form.text_field :input_string, maxlength: 30, id:'chat-input', class: "chat-input" %>
+        <%= form.text_field :input_string, pattern: "[a-zA-Z0-9 ]*", title: "No special characters", :class => "form-control", placeholder:"Type a message...", maxlength: 40, id:'chat-input' %>
         <%= form.submit "Send", id:'send-button', class: "send-button" %>
     </div>
     <% end %>
