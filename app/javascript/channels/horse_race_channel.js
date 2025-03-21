@@ -10,47 +10,52 @@ consumer.subscriptions.create("HorseRaceChannel", {
   },
 
   received(data) {
+    if (document.getElementById('race_track') == null) {
+      return;
+    }
+
     const horses = data.message.horses;
-    const resetting = data.message.resetting;
+    const resetting = data.message.resetting; // If the horse race enters it's reset phase
     const time_to_next_race = data.message.time_to_next_race;
 
-
-
     const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
-    const POSITION_WHEN_BETS_CLOSE = 70;
+    const POSITION_WHEN_BETS_CLOSE = 70; // Matches with the Servers bet close time
+    const STARTING_RACE_POSITION = 0;
+    const ENDING_RACE_POSITION = 100;
 
-    let has_started = false;
+    let race_has_started = false;
     let horse_has_finished = false;
     let is_betting_closed = false;
 
     const horseDivs = document.getElementsByClassName("race_horse");
 
     let index = 0;
-    let finish_place = 1;
-
     horses.forEach(horse => {
       const horseImg = horseDivs[index];
-      const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
 
       if (horse.position >= POSITION_WHEN_BETS_CLOSE) {
           is_betting_closed = true;
       }
 
-      // Move Horse
       horseImg.style.left = Math.min(100, horse.position) * 0.90 + "%"; // Caps the position to 90
 
-      if (horse.position >= 100) {
+      // Stop the horse when it finishes the race
+      if (horse.position >= ENDING_RACE_POSITION) {
           setTimeout(function() {
             horseImg.style.animationPlayState = "paused";
-            finish_place += 1;
           }, ANIMATION_PAUSE_DELAY);
+
           // The race has started and a horse has finished
-          has_started = true;
+          race_has_started = true;
           horse_has_finished = true;
-      } else if (horse.position == 0) {
+
+      // Stop the horse if the race hasn't started
+      } else if (horse.position == STARTING_RACE_POSITION) {
           horseImg.style.animationPlayState = "paused";
+
+      // If the horses aren't at the start or end, they must be racing
       } else {
-          has_started = true;
+          race_has_started = true;
           horseImg.style.animationPlayState = "running";
       }
 
@@ -107,7 +112,9 @@ consumer.subscriptions.create("HorseRaceChannel", {
             horseImg.style.animationDuration = "1s";
             index += 1;
         });
-    } else if (!has_started) {
+
+    // Unsets the slow-mo effects
+    } else if (!race_has_started) {
         index = 0
         horses.forEach(horse => {
             const horseImg = horseDivs[index];

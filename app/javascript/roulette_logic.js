@@ -1,6 +1,6 @@
-/* 
+/*
 	This code contains references pulled from: https://codepen.io/dadas190/pen/BYpEOa
-	To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations 
+	To find full references visit: https://github.com/COMP4350TheHouse/Casino/wiki/Citations
 */
 
 (function($) {
@@ -493,6 +493,8 @@ function timeLeft() {
 function updateRouletteStartTimer() {
     let rouletteStartTimer = document.getElementById('rouletteStartTimer');
     let progressBar = document.getElementById('progressFill');
+
+    if (progressBar == null) { return; }
 
     function updateTimer() {
         let remainingTime = timeLeft() / 1000; // Convert to seconds
