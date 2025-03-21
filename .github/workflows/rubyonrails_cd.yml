@@ -41,7 +41,6 @@ jobs:
         with:
           context: .
           push: true
-          # tags: comp4350TheHouse/casino:latest
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       
