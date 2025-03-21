@@ -9,11 +9,7 @@ class ChatController < ApplicationController
       "Roulette" => "roulette_channel"
     }
 
-    if message.length == 0
-      return
-    end
-
-    # Stops XSS by removing all < & >
+    return if message.empty?
 
     channel_name = channel_map[channel]
     ActionCable.server.broadcast(channel_name, { body: "#{Current.session.user.username}: #{message}" })
