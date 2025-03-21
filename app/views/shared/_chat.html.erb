@@ -19,9 +19,9 @@
 <script>
 // Clears the text box after a delay
 // The delay is necessary as if we clear it before hand it won't be sent to the server
-const SMALL_DELAY = 20
-
 document.getElementById('chat-form').addEventListener('submit', function() {
+  const SMALL_DELAY = 20
+
   setTimeout(function() {
     document.getElementById('chat-input').value = '';
   }, SMALL_DELAY);
