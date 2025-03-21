@@ -38,11 +38,11 @@ document.getElementById("horse_bet_form_" + "<%= horse.id %>" + "_<%= kind %>").
   cell3.innerHTML = bet_input_ref.value;
   cell4.innerHTML = "<%= horse.odds(kind) %>";
 
-  const SMALL_DELAY = 20;
+  const BET_CLEAR_DELAY = 20;
   // Delays clearing the input for a moment so the request sent to the controller isn't empty
   setTimeout(function() {
     bet_input_ref.value = '';
-  }, SMALL_DELAY);
+  }, BET_CLEAR_DELAY);
 
   // Updates the balance display manually as Rails does not do this automatically
   let new_balance = balance_display.innerText.substr(10) - bet_input_ref.value;
