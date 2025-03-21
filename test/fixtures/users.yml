@@ -19,3 +19,10 @@ three:
   password_digest: <%= password_digest %>
   balance: 500
   allowance_paid: true
+
+four:
+  email_address: four@example.com
+  username: four4
+  password_digest: <%= password_digest %>
+  balance: 0
+  allowance_paid: false

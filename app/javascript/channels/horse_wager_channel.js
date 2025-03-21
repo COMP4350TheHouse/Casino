@@ -12,8 +12,11 @@ consumer.subscriptions.create("HorseWagerChannel", {
   },
 
   received(data) {
+    if (document.getElementById('horse_wager_payout_body') == null) {
+      return;
+    }
+
     let message = data.message;
-    // Called when there's incoming data on the websocket for this channel
     let tbodyRef = document.getElementById('horse_wager_payout_body');
 
     let row = tbodyRef.insertRow();
@@ -21,8 +24,9 @@ consumer.subscriptions.create("HorseWagerChannel", {
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
 
-    cell1.innerHTML = message.horse_name
+    // On the Table on the Horse Race Webpage, the order is 1. Horse Name, 2. Bet Type, 3. Payout
+    cell1.innerHTML = message.horse_name;
     cell2.innerHTML = message.bet_type;
-    cell3.innerHTML = message.payout
+    cell3.innerHTML = message.payout;
   }
 });

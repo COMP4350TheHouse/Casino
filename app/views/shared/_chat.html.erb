@@ -6,10 +6,10 @@
         <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
     </div>
     <%= channels.each_with_index do |channel, index| %>
-        <div class="chat-text" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
+        <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
     <% end %>
     <div class="chat-footer">
-        <%= form.text_field :input_string, maxlength: 30, id:'chat-input', class: "chat-input" %>
+        <%= form.text_field :input_string, pattern: "[a-zA-Z0-9 ]*", title: "No special characters", :class => "form-control", placeholder:"Type a message...", maxlength: 40, id:'chat-input' %>
         <%= form.submit "Send", id:'send-button', class: "send-button" %>
     </div>
     <% end %>
@@ -17,14 +17,17 @@
 
 
 <script>
-// Clears the text box
+// Clears the text box after a delay
+// The delay is necessary as if we clear it before hand it won't be sent to the server
 document.getElementById('chat-form').addEventListener('submit', function() {
+  const CHAT_INPUT_CLEAR_DELAY = 20
+
   setTimeout(function() {
     document.getElementById('chat-input').value = '';
-  }, 20); // Just has to delay a little bit
+  }, CHAT_INPUT_CLEAR_DELAY);
 });
 
-// Switches channels
+// Hides the channels that are currently not selected
 document.getElementById('channel-select').addEventListener('change', function() {
   text = document.getElementById('channel-select').value;
 

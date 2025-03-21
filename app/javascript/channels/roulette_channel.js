@@ -10,10 +10,14 @@ consumer.subscriptions.create("RouletteChannel", {
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
+    if (document.getElementById('Roulette') == null) {
+      return;
+    }
+
     const messages = document.getElementById('Roulette');
     const message  = document.createElement('p');
 
+    message.classList.add('chat-text');
     message.innerHTML = data["body"];
     messages.insertBefore(message, messages.firstChild);
   }
