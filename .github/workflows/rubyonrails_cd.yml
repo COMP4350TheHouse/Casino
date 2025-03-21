@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - 136-user-latest-tag
+      - 136-use-latest-tag
 
 jobs:
   push_to_registry:
