@@ -17,14 +17,17 @@
 
 
 <script>
-// Clears the text box
+// Clears the text box after a delay
+// The delay is necessary as if we clear it before hand it won't be sent to the server
+const SMALL_DELAY = 20
+
 document.getElementById('chat-form').addEventListener('submit', function() {
   setTimeout(function() {
     document.getElementById('chat-input').value = '';
-  }, 20); // Just has to delay a little bit
+  }, SMALL_DELAY);
 });
 
-// Switches channels
+// Hides the channels that are currently not selected
 document.getElementById('channel-select').addEventListener('change', function() {
   text = document.getElementById('channel-select').value;
 

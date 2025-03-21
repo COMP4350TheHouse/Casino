@@ -10,10 +10,10 @@ consumer.subscriptions.create("HorseRaceChatChannel", {
   },
 
   received(data) {
-      if (document.getElementById('Horse Race') == null) {
-        return;
-      }
-    // Called when there's incoming data on the websocket for this channel
+    if (document.getElementById('Horse Race') == null) {
+      return;
+    }
+
     const messages = document.getElementById('Horse Race');
     const message  = document.createElement('p');
 

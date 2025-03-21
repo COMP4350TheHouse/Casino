@@ -13,7 +13,6 @@ consumer.subscriptions.create("GlobalChannel", {
     if (document.getElementById('Global') == null) {
         return;
     }
-    // Called when there's incoming data on the websocket for this channel
     const messages = document.getElementById('Global');
     const message  = document.createElement('p');
 
