@@ -33,7 +33,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: COMP4350TheHouse/casino
+          images: COMP4350TheHouse/casino:latest
       
       - name: Build and push Docker image
         id: push
