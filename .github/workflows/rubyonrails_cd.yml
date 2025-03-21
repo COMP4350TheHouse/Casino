@@ -34,8 +34,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: comp4350TheHouse/casino
-          tags: |
-            type=raw,latest
+          tags: latest
       
       - name: Build and push Docker image
         id: push
@@ -43,7 +42,7 @@ jobs:
         with:
           context: .
           push: true
-          # tags: comp4350TheHouse/casino
+          tags: comp4350TheHouse/casino:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: Generate artifact attestation
