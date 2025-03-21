@@ -47,6 +47,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: index.docker.io/COMP4350TheHouse/casino:latest
+          subject-name: index.docker.io/COMP4350TheHouse/casino
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
