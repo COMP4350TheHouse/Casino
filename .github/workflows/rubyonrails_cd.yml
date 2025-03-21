@@ -34,7 +34,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: comp4350TheHouse/casino
-          # tags: latest
+          tags: latest
       
       - name: Build and push Docker image
         id: push
