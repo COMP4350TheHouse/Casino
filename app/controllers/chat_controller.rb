@@ -11,6 +11,9 @@ class ChatController < ApplicationController
 
     return if message.empty?
 
+    # This matches with the input form on the front end
+    return unless message.match? /\A[a-zA-Z'-]*\z/
+
     channel_name = channel_map[channel]
     ActionCable.server.broadcast(channel_name, { body: "#{Current.session.user.username}: #{message}" })
   end
