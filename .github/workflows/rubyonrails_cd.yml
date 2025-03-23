@@ -32,7 +32,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: COMP4350TheHouse/casino
+          images: comp4350thetouse/casino
+          tags: latest
       
       - name: Build and push Docker image
         id: push
@@ -46,6 +47,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: index.docker.io/COMP4350TheHouse/casino
+          subject-name: index.docker.io/comp4350thehouse/casino
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
