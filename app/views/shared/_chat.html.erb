@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag 'chat.css', media: 'all' %>
 
 <div class="chat-div">
-  <%= channels.each_with_index do |channel, index| %>
+  <% channels.each_with_index do |channel, index| %>
     <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
   <% end %>
   <div class="chat-footer">
@@ -35,8 +35,10 @@ document.getElementById('channel-select').addEventListener('change', function() 
 
   array.forEach(function (channel, index) {
     document.getElementById(channel).style.visibility = "hidden";
+    document.getElementById(channel).style.height = "0";
   });
 
   document.getElementById(text).style.visibility = "visible";
+  document.getElementById(text).style.height = "auto";
 });
 </script>
