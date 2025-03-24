@@ -1,5 +1,7 @@
+// Import the consumer instance from the channels to manage websockets
 import consumer from "channels/consumer"
 
+// Create a subscription to the "GlobalChannel" so all gamblers can confer with eachother
 consumer.subscriptions.create("GlobalChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
@@ -9,6 +11,7 @@ consumer.subscriptions.create("GlobalChannel", {
     // Called when the subscription has been terminated by the server
   },
 
+  // Callback function when a message is received from the server
   received(data) {
     if (document.getElementById('Global') == null) {
         return;
@@ -21,6 +24,7 @@ consumer.subscriptions.create("GlobalChannel", {
     messages.insertBefore(message, messages.firstChild);
   },
 
+  // Send action on the server through Action Cable
   send: function() {
     return this.perform('send');
   }

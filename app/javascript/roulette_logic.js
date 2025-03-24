@@ -390,9 +390,6 @@ function initializePlacedChips(){
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 			img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-			//img.style.left=(squares[id][0]+rX)+"px";
-			//img.style.top=(squares[id][1]+rY)+"px";
-
 			img.style.width="20px";
 			img.style.pointerEvents="none";
 
@@ -449,9 +446,6 @@ function placeChips(){
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 		img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-		//img.style.left=(squares[id][0]+rX)+"px";
-		//img.style.top=(squares[id][1]+rY)+"px";
-
 		img.style.width="20px";
 		img.style.pointerEvents="none";
 
@@ -578,6 +572,9 @@ function spinWheel(){
 
 		// Timeout function to remove the disabled attribute when the roulette animation has stopped
 		setTimeout(function() {
+			// Payout bets
+			placeBet(randomNumber)
+
 			$reset.removeClass('disabled').prop('disabled','');
 
 			// Replace the mask value with the value the ball landed on and the colour
@@ -593,7 +590,6 @@ function spinWheel(){
 
 		// Timeout function to reset the ball after a few seconds
 		setTimeout(function(){
-			placeBet(randomNumber)
 			currentChips = [];
 			// remove the spinto data attr so the ball 'resets'
 			$inner.attr('data-spinto','').removeClass('rest');
