@@ -10,16 +10,14 @@ consumer.subscriptions.create("HorseRaceChannel", {
   },
 
   received(data) {
-    if (document.getElementById('race_track') == null) {
-      return;
-    }
+    if (document.getElementById('race_track') == null) { return; }
 
     const horses = data.message.horses;
     const resetting = data.message.resetting; // If the horse race enters it's reset phase
     const time_to_next_race = data.message.time_to_next_race;
 
     const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
-    const POSITION_WHEN_BETS_CLOSE = 70; // Matches with the Servers bet close time
+    const POSITION_WHEN_BETS_CLOSE = 70; // Matches with the Servers bet close position
     const STARTING_RACE_POSITION = 0;
     const ENDING_RACE_POSITION = 100;
 

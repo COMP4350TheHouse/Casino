@@ -10,9 +10,7 @@ consumer.subscriptions.create("HorseRaceChatChannel", {
   },
 
   received(data) {
-    if (document.getElementById('Horse Race') == null) {
-      return;
-    }
+    if (document.getElementById('Horse Race') == null) { return; }
 
     const messages = document.getElementById('Horse Race');
     const message  = document.createElement('p');

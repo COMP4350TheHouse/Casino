@@ -12,9 +12,7 @@ consumer.subscriptions.create("HorseWagerChannel", {
   },
 
   received(data) {
-    if (document.getElementById('horse_wager_payout_body') == null) {
-      return;
-    }
+    if (document.getElementById('horse_wager_payout_body') == null) { return; }
 
     let message = data.message;
     let tbodyRef = document.getElementById('horse_wager_payout_body');

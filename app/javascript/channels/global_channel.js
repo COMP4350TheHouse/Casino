@@ -10,9 +10,8 @@ consumer.subscriptions.create("GlobalChannel", {
   },
 
   received(data) {
-    if (document.getElementById('Global') == null) {
-        return;
-    }
+    if (document.getElementById('Global') == null) { return; }
+
     const messages = document.getElementById('Global');
     const message  = document.createElement('p');
 

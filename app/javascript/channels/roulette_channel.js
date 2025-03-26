@@ -10,9 +10,7 @@ consumer.subscriptions.create("RouletteChannel", {
   },
 
   received(data) {
-    if (document.getElementById('Roulette') == null) {
-      return;
-    }
+    if (document.getElementById('Roulette') == null) { return; }
 
     const messages = document.getElementById('Roulette');
     const message  = document.createElement('p');

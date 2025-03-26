@@ -390,8 +390,6 @@ function initializePlacedChips(){
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 			img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-			//img.style.left=(squares[id][0]+rX)+"px";
-			//img.style.top=(squares[id][1]+rY)+"px";
 
 			img.style.width="20px";
 			img.style.pointerEvents="none";
@@ -449,8 +447,6 @@ function placeChips(){
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 		img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
-		//img.style.left=(squares[id][0]+rX)+"px";
-		//img.style.top=(squares[id][1]+rY)+"px";
 
 		img.style.width="20px";
 		img.style.pointerEvents="none";
@@ -491,14 +487,12 @@ function timeLeft() {
 }
 
 function updateRouletteStartTimer() {
-    let rouletteStartTimer = document.getElementById('rouletteStartTimer');
     let progressBar = document.getElementById('progressFill');
 
     if (progressBar == null) { return; }
 
     function updateTimer() {
         let remainingTime = timeLeft() / 1000; // Convert to seconds
-        //rouletteStartTimer.textContent = remainingTime.toFixed(1) + "s before the roulette spins";
 
         // Update progress bar width (percentage)
         let percent = (remainingTime / 60) * 100;
@@ -544,7 +538,6 @@ $mask.text(maskDefault);
 
 // Function for spinning the wheel
 function spinWheel(){
-	console.log("Spinning the Wheel!");
 	rouletteInPlay = true;
 
 	// Get the winning number stored in the server
