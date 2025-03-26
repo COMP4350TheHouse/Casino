@@ -15,9 +15,7 @@ consumer.subscriptions.create("HorseWagerChannel", {
 
   // Callback function when a message is received from the server
   received(data) {
-    if (document.getElementById('horse_wager_payout_body') == null) {
-      return;
-    }
+    if (document.getElementById('horse_wager_payout_body') == null) { return; }
 
     let message = data.message;
     let tbodyRef = document.getElementById('horse_wager_payout_body');

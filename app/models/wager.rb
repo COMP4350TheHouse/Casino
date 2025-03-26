@@ -11,6 +11,7 @@ class Wager < ApplicationRecord
     odds * amount
   end
 
+  # Gets the tooltip when hovered over the bet buttons
   def self.tooltip(kind)
     tooltip = {
       straight: "if the horse comes in 1st place, the bet is a winner",

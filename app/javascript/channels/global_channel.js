@@ -13,9 +13,8 @@ consumer.subscriptions.create("GlobalChannel", {
 
   // Callback function when a message is received from the server
   received(data) {
-    if (document.getElementById('Global') == null) {
-        return;
-    }
+    if (document.getElementById('Global') == null) { return; }
+
     const MESSAGES = document.getElementById('Global');
     const MESSAGE  = document.createElement('p');
 

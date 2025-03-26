@@ -13,9 +13,7 @@ consumer.subscriptions.create("RouletteChannel", {
 
   // Callback function when a message is received from the server
   received(data) {
-    if (document.getElementById('Roulette') == null) {
-      return;
-    }
+    if (document.getElementById('Roulette') == null) { return; }
 
     const MESSAGES = document.getElementById('Roulette');
     const MESSAGE  = document.createElement('p');

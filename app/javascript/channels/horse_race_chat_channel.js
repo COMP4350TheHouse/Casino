@@ -13,9 +13,7 @@ consumer.subscriptions.create("HorseRaceChatChannel", {
 
   // Callback function when a message is received from the server
   received(data) {
-    if (document.getElementById('Horse Race') == null) {
-      return;
-    }
+    if (document.getElementById('Horse Race') == null) { return; }
 
     const MESSAGES = document.getElementById('Horse Race');
     const MESSAGE  = document.createElement('p');

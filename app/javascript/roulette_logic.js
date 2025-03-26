@@ -379,6 +379,7 @@ function initializePlacedChips(){
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 			img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
+
 			img.style.width="20px";
 			img.style.pointerEvents="none";
 
@@ -432,6 +433,7 @@ function placeChips(){
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
 		img.style.top = `${rect.top + window.scrollY + cell.clientHeight / 2 - 10}px`;
+
 		img.style.width="20px";
 		img.style.pointerEvents="none";
 
@@ -522,7 +524,6 @@ $mask.text(maskDefault);
 
 // Function for spinning the wheel
 function spinWheel(){
-	console.log("Spinning the Wheel!");
 	rouletteInPlay = true;
 
 	// Get the winning number stored in the server

@@ -13,9 +13,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
 
   // Callback function when a message is received from the server
   received(data) {
-    if (document.getElementById('race_track') == null) {
-      return;
-    }
+    if (document.getElementById('race_track') == null) { return; }
 
     const HORSES = data.message.horses;
     const RESETTING = data.message.resetting; // If the horse race enters it's reset phase
@@ -23,7 +21,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
 
     // Constants for controlling race animation behavior and timing
     const ANIMATION_PAUSE_DELAY = 3000; // Matches the CSS transition time
-    const POSITION_WHEN_BETS_CLOSE = 70; // Matches with the Servers bet close time
+    const POSITION_WHEN_BETS_CLOSE = 70; // Matches with the Servers bet close position
     const STARTING_RACE_POSITION = 0;
     const ENDING_RACE_POSITION = 100;
 
