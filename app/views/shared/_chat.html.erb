@@ -1,18 +1,18 @@
 <%= stylesheet_link_tag 'chat.css', media: 'all' %>
 
 <div class="chat-div">
+  <% channels.each_with_index do |channel, index| %>
+    <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
+  <% end %>
+  <div class="chat-footer">
     <%= form_with(url: chat_send_url, method: :post, remote: true, data: {turbo: true}, html: { id: 'chat-form' }) do |form| %>
-    <div class="chat-header">
-        <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
-    </div>
-    <%= channels.each_with_index do |channel, index| %>
-        <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
-    <% end %>
-    <div class="chat-footer">
+      <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
+      <div class="chat-input-div">
         <%= form.text_field :input_string, title: "No special characters", :class => "form-control", placeholder:"Type a message...", maxlength: 100, id:'chat-input' %>
-        <%= form.submit "Send", id:'send-button', class: "send-button" %>
-    </div>
+        <%= form.submit "Send", id:'send-button', class: "send-button", type: "image", src: asset_path("send.svg") %>
+      </div>
     <% end %>
+  </div>
 </div>
 
 
@@ -35,8 +35,10 @@ document.getElementById('channel-select').addEventListener('change', function() 
 
   array.forEach(function (channel, index) {
     document.getElementById(channel).style.visibility = "hidden";
+    document.getElementById(channel).style.height = "0";
   });
 
   document.getElementById(text).style.visibility = "visible";
+  document.getElementById(text).style.height = "auto";
 });
 </script>

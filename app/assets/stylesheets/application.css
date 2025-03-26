@@ -50,19 +50,22 @@
   z-index: 0;
 }
 #main-chat {
+  position: fixed;
   grid-area: chat;
-  width: 0;
   overflow: hidden;
-  transition: width 0.5s ease;
-  /* TODO this shouldn't have a background color */
-  background-color: rgb(255,100,100);
   margin-right: 0%;
   padding-right: 0%;
   justify-self: right;
+
+  width: 20em;
+  max-width: 100vw;
+  height: 100%;
+  right: -20em;
+  transition: 0.5s ease;
 }
 #main-chat .chat {
   visibility: hidden;
 }
 #main-chat.expand {
-  width: 10em;
+  right: 0;
 }
