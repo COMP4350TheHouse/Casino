@@ -18,6 +18,7 @@ class RouletteController < ApplicationController
     amount = params[:amount].to_f
     bet_id = params[:bet_id]
 
+    # Return invalid bet if user has insufficient balance
     return render json: { balance: user.balance, valid_bet: false }, status: :ok if insufficient_balance?(user, amount)
 
     bet = create_and_save_bet(user, amount, bet_id)
@@ -47,13 +48,7 @@ class RouletteController < ApplicationController
     user.save
   end
 
-  # Create a bet on a roulette cell that will be stored
-  def create_bet(user, amount, bet_id)
-    puts "Roulette Bet received - [ID: #{bet_id}, Amount: $#{amount}]"
-    Bet.new(user: user, amount: amount, bet_id: bet_id)
-  end
-
-  # Generate the winning number, then payout bets
+  # Find the winning number, then payout bets
   def payout_bets
     winning_number = params[:winning_num].to_i
     user = Current.session.user
@@ -81,6 +76,12 @@ class RouletteController < ApplicationController
 
   private
 
+  # Create a bet on a roulette cell that will be stored
+  def create_bet(user, amount, bet_id)
+    puts "Roulette Bet received - [ID: #{bet_id}, Amount: $#{amount}]"
+    Bet.new(user: user, amount: amount, bet_id: bet_id)
+  end
+
   def calculate_total_winnings(bets, winning_number)
     total_winnings = 0
     bets.each do |bet|
@@ -95,8 +96,7 @@ class RouletteController < ApplicationController
   end
 
   def get_payout_multiplier(bet_id, winning_number)
-    calculator = PayoutCalculator.new(bet_id, winning_number)
-    calculator.calculate
+    PayoutCalculator.new(bet_id, winning_number).calculate
   end
 
   def update_user_balance(user, winnings)

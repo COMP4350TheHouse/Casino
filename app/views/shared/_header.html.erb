@@ -4,7 +4,9 @@
   <div class="header-account-section">
       <%= render 'shared/account_menu'%>
   </div>
-    <h1 class="header-title">Casino</h1>
+    <h1 class="header-title">
+      The Bada Bing Casino
+    </h1>
     <div class = "header-navigation">
       <%= link_to "Lobby", root_path, class: ("active" if on_lobby_page?)%>
       <%= link_to "Roulette", roulette_roulette_board_path, class: ("active" if on_roulette?), method: :post, data: { turbo: false } %>

@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    # Return current user info or redirect to home page
     if Current.session.user.username == params[:id]
       @user = User.find_by username: params[:id]
     else

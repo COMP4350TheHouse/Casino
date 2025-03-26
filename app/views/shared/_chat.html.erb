@@ -1,18 +1,24 @@
 <%= stylesheet_link_tag 'chat.css', media: 'all' %>
 
 <div class="chat-div">
-  <% channels.each_with_index do |channel, index| %>
-    <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
-  <% end %>
-  <div class="chat-footer">
-    <%= form_with(url: chat_send_url, method: :post, remote: true, data: {turbo: true}, html: { id: 'chat-form' }) do |form| %>
-      <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
-      <div class="chat-input-div">
-        <%= form.text_field :input_string, title: "No special characters", :class => "form-control", placeholder:"Type a message...", maxlength: 100, id:'chat-input' %>
-        <%= form.submit "Send", id:'send-button', class: "send-button", type: "image", src: asset_path("send.svg") %>
-      </div>
+    <% if logged_in? %>
+        <% channels.each_with_index do |channel, index| %>
+            <div class="chat-text-div" id="<%= channel %>" style="visibility: <%= index.zero? ? "visible" : "hidden" %>"></div>
+        <% end %>
+        <div class="chat-footer">
+        <%= form_with(url: chat_send_url, method: :post, remote: true, data: {turbo: true}, html: { id: 'chat-form' }) do |form| %>
+            <%= form.select :channel, channels.map { |channel| [channel] }, {}, { id: 'channel-select', class: 'channel-select' } %>
+            <div class="chat-input-div">
+              <%= form.text_field :input_string, title: "No special characters", :class => "form-control", placeholder:"Type a message...", maxlength: 100, id:'chat-input' %>
+              <%= form.submit "Send", id:'send-button', class: "send-button", type: "image", src: asset_path("send.svg") %>
+            </div>
+        </div>
+        <% end %>
+    <% else %>
+        <div class="chat-login-div">
+            <%= link_to "Log in to use the chat!",  new_session_path, class: "chat-login-text" %>
+        </div>
     <% end %>
-  </div>
 </div>
 
 

@@ -30,8 +30,29 @@
 
 .chat-text {
     margin: 0.25rem;
-
     overflow-wrap: break-word;
+}
+
+.chat-login-div {
+    padding: 5px;
+
+    background-color: var(--input);
+
+    width: 95%;
+    height: 1em;
+    border-radius: 4px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.chat-login-text {
+    color: var(--chat-fg);
+    text-decoration: none;
+}
+
+.chat-login-div:hover {
+    background-color: var(--input-hover);
 }
 
 .chat-footer {
