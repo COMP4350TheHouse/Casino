@@ -1,0 +1,7 @@
+# This is the configuration file for brakeman static analysis, this is a security analyzer
+---
+run_all_checks: true
+quiet: true
+skip_checks:
+  - "CheckForceSSL" #Deliberately have SSL disabled for our app as we do not have a domain and SSL certificate.
+min_confidence: 0 # Only output High confidence warnings
