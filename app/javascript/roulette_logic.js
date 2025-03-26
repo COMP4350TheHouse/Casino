@@ -285,11 +285,6 @@ for(var i=0;i<divs.length;i++){
 	}
 }
 
-// Randomly places chip on the selected cell
-function rInt(min,max){
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 // Array of chip objects that are placed on each cell of the roulette board
 var chips=new Array(48);
 
@@ -299,15 +294,15 @@ var currentChips;
 // Function for placing an individual chip
 function placeIndividualChip(id){
 	// Get the cell the user clicked on based on the ID
-	var cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
+	let cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
     if (!cell) return;
 
 	// Get the rectangle and create a new image element
-    var rect = cell.getBoundingClientRect();
-	var img = document.createElement('img');
+    let rect = cell.getBoundingClientRect();
+	let img = document.createElement('img');
 
 	// Mapping of bet amounts to chip images
-    const chipImages = {
+    const CHIP_IMAGES = {
         1: casinoChipRed,
         10: casinoChipBlue,
         25: casinoChipGreen,
@@ -319,12 +314,9 @@ function placeIndividualChip(id){
     };
 
     // Set the image source based on the currently selected bet amount
-    img.src = chipImages[betAmount] || casinoChipRed; // Default to red if undefined
+    img.src = CHIP_IMAGES[betAmount] || casinoChipRed; // Default to red if undefined
 	img.style.zIndex="0";
 	img.style.position="absolute";
-
-	var rX=rInt(-8,8);
-	var rY=rInt(50,55);
 
 	// Adjust for viewport scroll and scaling
 	img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
@@ -361,7 +353,7 @@ function initializePlacedChips(){
 			amount = data[i].amount
 
 			// Mapping of bet amounts to chip images
-			const chipImages = {
+			const CHIP_IMAGES = {
 				1: casinoChipRed,
 				10: casinoChipBlue,
 				25: casinoChipGreen,
@@ -373,19 +365,16 @@ function initializePlacedChips(){
 			};
 
 			// Get the cell the user clicked on based on the ID
-			var cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
+			let cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
 			if (!cell) return;
 
 			// Get the rectangle and create a new image element
-			var rect = cell.getBoundingClientRect();
-			var img = document.createElement('img');
+			let rect = cell.getBoundingClientRect();
+			let img = document.createElement('img');
 
-			img.src = chipImages[amount] || casinoChipRed;
+			img.src = CHIP_IMAGES[amount] || casinoChipRed;
 			img.style.zIndex="0";
 			img.style.position="absolute";
-
-			var rX=rInt(-8,8);
-			var rY=rInt(50,55);
 
 			// Adjust for viewport scroll and scaling
 			img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
@@ -409,16 +398,16 @@ function placeChips(){
 	if(!Array.isArray(currentChips)) return;
 
 	// Remove all chips from the board (if any)
-	for(var i=0;i<chips.length;i++){
-		if(chips[i]!=null)for(var j=0;chips[i].length>0;j++)document.body.removeChild(chips[i].pop());
+	for(let i=0;i<chips.length;i++){
+		if(chips[i]!=null)for(let j=0;chips[i].length>0;j++)document.body.removeChild(chips[i].pop());
 	}
 
-	for (var i = 0; i < currentChips.length; i++) {
+	for (let i = 0; i < currentChips.length; i++) {
 		id = currentChips[i].bet_id
 		amount = currentChips[i].amount
 
 		// Mapping of bet amounts to chip images
-		const chipImages = {
+		const CHIP_IMAGES = {
 			1: casinoChipRed,
 			10: casinoChipBlue,
 			25: casinoChipGreen,
@@ -430,19 +419,16 @@ function placeChips(){
 		};
 
 		// Get the cell the user clicked on based on the ID
-		var cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
+		let cell = document.querySelector(`[data-num="${id}"], [data-sector="${id - 36}"]`);
 		if (!cell) return;
 
 		// Get the rectangle and create a new image element
-		var rect = cell.getBoundingClientRect();
-		var img = document.createElement('img');
+		let rect = cell.getBoundingClientRect();
+		let img = document.createElement('img');
 
-		img.src = chipImages[amount] || casinoChipRed;
+		img.src = CHIP_IMAGES[amount] || casinoChipRed;
 		img.style.zIndex="0";
 		img.style.position="absolute";
-
-		var rX=rInt(-8,8);
-		var rY=rInt(50,55);
 
 		// Adjust for viewport scroll and scaling
 		img.style.left = `${rect.left + window.scrollX + cell.clientWidth / 2 - 10}px`;
@@ -466,8 +452,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (chatDiv) {
 		chatDiv.addEventListener("click", function () {
 			// Remove all chips from the board (if any)
-			for(var i=0;i<chips.length;i++){
-				if(chips[i]!=null)for(var j=0;chips[i].length>0;j++)document.body.removeChild(chips[i].pop());
+			for(let i=0;i<chips.length;i++){
+				if(chips[i]!=null)for(let j=0;chips[i].length>0;j++)document.body.removeChild(chips[i].pop());
 			}
 			setTimeout(placeChips, 500);
 		});
@@ -481,9 +467,9 @@ window.addEventListener("load", placeChips);
 
 /**** Code for automatically running the place bet part of the roulette game ****/
 function timeLeft() {
-    const now = new Date();
-    const seconds = now.getSeconds();
-    return 60000 - (seconds * 1000); // Time left until the next full minute
+    const NOW = new Date();
+    const SECONDS = NOW.getSeconds();
+    return 60000 - (SECONDS * 1000); // Time left until the next full minute
 }
 
 function updateRouletteStartTimer() {
@@ -541,7 +527,7 @@ function spinWheel(){
 	rouletteInPlay = true;
 
 	// Get the winning number stored in the server
-	var randomNumber = Math.floor(Math.random() * 36);
+	let randomNumber = Math.floor(Math.random() * 36);
 	fetch('/roulette/winning_num_request', {
 		method: 'GET',
 		headers: {
@@ -554,7 +540,7 @@ function spinWheel(){
 		randomNumber = data.winning_num
 
 		// Animate the ball
-		var color = null;
+		let color = null;
 		$inner.attr('data-spinto', randomNumber).find('li:nth-child('+ randomNumber +') input').prop('checked','checked');
 
 		// Remove the place holder
@@ -571,6 +557,9 @@ function spinWheel(){
 
 		// Timeout function to remove the disabled attribute when the roulette animation has stopped
 		setTimeout(function() {
+			// Payout bets
+			placeBet(randomNumber)
+
 			$reset.removeClass('disabled').prop('disabled','');
 
 			// Replace the mask value with the value the ball landed on and the colour
@@ -586,7 +575,6 @@ function spinWheel(){
 
 		// Timeout function to reset the ball after a few seconds
 		setTimeout(function(){
-			placeBet(randomNumber)
 			currentChips = [];
 			// remove the spinto data attr so the ball 'resets'
 			$inner.attr('data-spinto','').removeClass('rest');
@@ -604,7 +592,7 @@ function spinWheel(){
 ////////////////////////////////////////////////
 
 /****  Logic for changing chip amounts *****/
-const chipData = [
+const CHIP_DATA = [
 	{ src: casinoChipRed, value: 1},
 	{ src: casinoChipBlue, value: 10},
 	{ src: casinoChipGreen, value: 25},
@@ -616,28 +604,28 @@ const chipData = [
 ];
 
 // Finds the chipContainer UI element in the HTML
-const chipContainer = document.getElementById("chipContainer");
+const CHIP_CONTAINER = document.getElementById("chipContainer");
 
 // Dynamically append the chips to the chip container so that the user can switch bet amounts
-chipData.forEach((chipInfo, index) => {
-	const chip = document.createElement("img");
-	chip.src = chipInfo.src;
-	chip.classList.add("chip");
+CHIP_DATA.forEach((chipInfo, index) => {
+	const CHIP = document.createElement("img");
+	CHIP.src = chipInfo.src;
+	CHIP.classList.add("chip");
 
 	// Set the first chip (red) as selected by default
 	if (index === 0) {
-		chip.classList.add("selected");
+		CHIP.classList.add("selected");
 	}
 
-	chip.addEventListener("click", () => {
+	CHIP.addEventListener("click", () => {
 		document.querySelectorAll(".chip").forEach(c => c.classList.remove("selected"));
-		chip.classList.add("selected");
+		CHIP.classList.add("selected");
 
 		// Update the global bet amount
 		betAmount = chipInfo.value;
 	});
 
-	chipContainer.appendChild(chip);
+	CHIP_CONTAINER.appendChild(CHIP);
 });
 
 /////////////////////////////////////////////
@@ -648,5 +636,5 @@ initializePlacedChips()
 // Variables for tracking game state, bet amount, and roulette countdown timers
 var rouletteInterval = setInterval(updateRouletteStartTimer, 1000);
 var rouletteInPlay = false;
-let betAmount = 1 // Start with red chip by default
-var hovering=0;
+var betAmount = 1 // Start with red chip by default
+var hovering=0; // Variable to determine if user is hovering over a roulette cell

@@ -22,6 +22,10 @@
   </head>
 
     <body id="main-body-tag">
+      <div id="persistent_music" data-turbo-permanent>
+        <%= audio_tag '/audios/all_time_classics.mp3', id: 'background-audio', loop: true%>
+      </div>
+
       <div class="main-header">
         <%= render 'shared/header'%>
       </div>

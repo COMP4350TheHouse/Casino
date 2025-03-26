@@ -7,9 +7,9 @@
 name: "Ruby on Rails CI"
 on:
   push:
-    branches: [ "main", "dev", "45-continuous-integration-mysql" ]
+    branches: [ "main", "dev"]
   pull_request:
-    branches: [ "main", "dev", "45-continuous-integration-mysql" ]
+    branches: [ "main", "dev"]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,13 +34,6 @@ jobs:
         with:
           ruby-version: '3.4.1'
           bundler-cache: true
-
-      # - name: Wait for MySQL to be ready
-      #   run: |
-      #       until mysql -h 127.0.0.1 -u root -proot -e "SHOW DATABASES;"; do
-      #           echo "Waiting for MySQL to be ready..."
-      #           sleep 5
-      #       done
       # Add or replace database setup steps here
       - name: Set up database schema
         env:
@@ -69,11 +62,26 @@ jobs:
           ruby-version: '3.4.1'
           bundler-cache: true
       - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
+        run: bundle binstubs rubocop
       # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
       - name: Lint Ruby files
         run: bin/rubocop --parallel
+
+  security-analysis:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Install Ruby and gems
+          uses: ruby/setup-ruby@v1 # v1.179.1
+          with:
+            ruby-version: '3.4.1'
+            bundler-cache: true
+        # Add or replace any other security checks here
+        - name: Generate binstubs
+          run: bundle binstubs bundler-audit brakeman
+        - name: Security audit application code
+          run: bin/brakeman -c ${{ github.workspace }}/config/brakeman.yml
+        - name: Security audit dependencies
+          run: bin/bundler-audit --update
+        
