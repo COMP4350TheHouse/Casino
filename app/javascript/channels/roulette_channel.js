@@ -17,11 +17,11 @@ consumer.subscriptions.create("RouletteChannel", {
       return;
     }
 
-    const messages = document.getElementById('Roulette');
-    const message  = document.createElement('p');
+    const MESSAGES = document.getElementById('Roulette');
+    const MESSAGE  = document.createElement('p');
 
-    message.classList.add('chat-text');
-    message.innerHTML = data["body"];
-    messages.insertBefore(message, messages.firstChild);
+    MESSAGE.classList.add('chat-text');
+    MESSAGE.innerHTML = data["body"];
+    MESSAGES.insertBefore(MESSAGE, MESSAGES.firstChild);
   }
 });

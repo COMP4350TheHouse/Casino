@@ -16,12 +16,12 @@ consumer.subscriptions.create("GlobalChannel", {
     if (document.getElementById('Global') == null) {
         return;
     }
-    const messages = document.getElementById('Global');
-    const message  = document.createElement('p');
+    const MESSAGES = document.getElementById('Global');
+    const MESSAGE  = document.createElement('p');
 
-    message.classList.add('chat-text');
-    message.innerHTML = data["body"];
-    messages.insertBefore(message, messages.firstChild);
+    MESSAGE.classList.add('chat-text');
+    MESSAGE.innerHTML = data["body"];
+    MESSAGES.insertBefore(MESSAGE, MESSAGES.firstChild);
   },
 
   // Send action on the server through Action Cable
