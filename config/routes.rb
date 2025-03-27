@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
 
   resource :session
-  resources :passwords, param: :token
 
   resources :users
 
