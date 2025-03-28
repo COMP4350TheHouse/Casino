@@ -44,7 +44,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
       }
 
       // Caps the horses position to 90% of field width
-      HORSE_IMG.style.left = Math.min(100, horse.position) * 0.90 + "%"; 
+      HORSE_IMG.style.left = Math.min(100, horse.position) * 0.90 + "%";
 
       // Stop the horse when it finishes the race
       if (horse.position >= ENDING_RACE_POSITION) {
@@ -101,7 +101,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
     document.getElementById("time_to_next_race").innerHTML = TIME_TO_NEXT_RACE;
 
     // When the race is on it says "Racing", so we can't -1 in this case
-    if (Number.isInteger(time_to_next_race)) {
+    if (Number.isInteger(TIME_TO_NEXT_RACE)) {
         setTimeout(function () {
             document.getElementById("time_to_next_race").innerHTML = TIME_TO_NEXT_RACE - 1;
         }, ONE_SECOND);
@@ -111,7 +111,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
     // Initiates the slow-mo effect
     if (horse_has_finished) {
         // Stops the track as the horses are about to hit the finish line
-        race_track.style.animationPlayState = "paused";
+        RACE_TRACK.style.animationPlayState = "paused";
 
         // Slows the running animations for the slow-mo effect
         index = 0
@@ -130,7 +130,7 @@ consumer.subscriptions.create("HorseRaceChannel", {
             index += 1;
         });
     } else {
-        race_track.style.animationPlayState = "running";
+        RACE_TRACK.style.animationPlayState = "running";
     }
   }
 });
