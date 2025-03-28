@@ -154,17 +154,18 @@
         opacity: 0%;
     }
     100% {
-        opacity: 100%;
+        opacity: 30%;
     }
 }
 
 .tooltiptext {
-    top: 60px;
+    top: 0px;
+    left: 100px;
 
     visibility: hidden;
-    width: 120px;
-    background-color: black;
-    color: #fff;
+    width: 200px;
+    background-color: #333;
+    color: #ddd;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
@@ -179,8 +180,7 @@
 
 
 
-.place_button_div:hover .tooltiptext,
-.straight_button_div:hover .tooltiptext {
+.place_button:hover .tooltiptext {
     visibility: visible;
     animation-name: tooltip-opacity;
     animation-iteration-count: 1;
@@ -203,7 +203,6 @@ input::-webkit-inner-spin-button {
 
 /* For the Grid with the horses */
 .container {
-    /* visibility: hidden; */
     display: grid;
     place-items: center;
     grid-template-columns: repeat(2, auto);
