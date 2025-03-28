@@ -15,16 +15,13 @@
 
 <script>
 
-
 document.getElementById("horse_bet_form_" + "<%= horse.id %>" + "_<%= kind %>").addEventListener('submit', function() {
   let tbody_ref = document.getElementById('horse_wager_placed_body');
   let bet_input_ref = document.getElementById('bet_input_' + "<%= horse.id %>" + "_<%= kind %>");
   let balance_display = document.getElementById("balance_display");
 
   // We must manually check that the wagers are non-empty because this does not get a success response from the backend
-  if (bet_input_ref.value == '') {
-    return;
-  }
+  if (bet_input_ref.value == '') { return; }
 
   let row = tbody_ref.insertRow();
   let cell1 = row.insertCell(0);

@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
 
   resource :session
-  resources :passwords, param: :token
 
   resources :users
 
@@ -29,10 +28,8 @@ Rails.application.routes.draw do
 
   get "roulette/roulette_board"
 
-  # post 'horse_race/debug_skip_to_race', to: 'horse_race#debug_skip_to_race', as: 'debug_skip_to_race'
   post 'horse_race/restart_race', to: 'horse_race#restart_race', as: 'restart_race'
   post 'horse_race/submit_bet', to: 'horse_race#submit_bet', as: 'submit_bet'
-  # post 'horse_race/resolve_race', to: 'horse_race#resolve_race', as: 'resolve_race'
   post 'roulette/submit_roulette_bet', to: 'roulette#submit_roulette_bet', as: 'submit_roulette_bet'
   post 'roulette/payout_bets', to: 'roulette#payout_bets', as: 'payout_bets'
   post 'roulette/placed_chips_request', to: 'roulette#placed_chips_request', as: 'placed_chips_request'
