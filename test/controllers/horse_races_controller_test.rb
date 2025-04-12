@@ -7,13 +7,13 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert_response :redirect
   end
 
-  def does_wager_pay(kind, place)
+  def wager_pay?(kind, place)
     wager = Wager.new(kind: kind)
     wager.hits?(place)
   end
 
-  def does_wager_not_pay(kind, place)
-    !does_wager_pay(kind, place)
+  def wager_not_pay?(kind, place)
+    !wager_pay?(kind, place)
   end
 
   test "should navigate to horse race" do
@@ -28,13 +28,13 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert_response :success
   end
 
-  def does_wager_hit?(wager)
+  def wager_hit?(wager)
     horse = Horse.find(wager.horse_id)
     wager.hits?(horse.place)
   end
 
   def do_all_wagers_hit?(user_id)
-    Wager.where(user_id: user_id).all? { |wager| does_wager_hit?(wager) }
+    Wager.where(user_id: user_id).all? { |wager| wager_hit?(wager) }
   end
 
   def make_horse_finish(horse, place = :none)
@@ -195,7 +195,7 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert Wager.count == 2
   end
 
-  test "should pay user accordingly for sucessful first placed horse show wager" do
+  test "should pay user accordingly for successful first placed horse show wager" do
     login
     amount = 1.00
     kind = :straight
@@ -218,38 +218,38 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     assert me.balance.round == (winner.odds(kind) * amount).round
   end
 
-  test "should pay user accordingly for sucessful second placed horse show wager" do
+  test "should pay user accordingly for successful second placed horse show wager" do
     login
-    does_wager_pay :show, 1
+    wager_pay? :show, 1
   end
 
-  test "should pay user accordingly for sucessful third placed horse show wager" do
+  test "should pay user accordingly for successful third placed horse show wager" do
     login
-    does_wager_pay :show, 2
+    wager_pay? :show, 2
   end
 
   test "should not pay user accordingly for horse placed out of the top 3 show wager" do
     login
-    does_wager_not_pay :show, 3
-    does_wager_not_pay :show, 4
-    does_wager_not_pay :show, 5
+    wager_not_pay? :show, 3
+    wager_not_pay? :show, 4
+    wager_not_pay? :show, 5
   end
 
   test "should not pay user accordingly for horse placed out of the top 2 place wager" do
     login
-    does_wager_not_pay :place, 2
-    does_wager_not_pay :place, 3
-    does_wager_not_pay :place, 4
-    does_wager_not_pay :place, 5
+    wager_not_pay? :place, 2
+    wager_not_pay? :place, 3
+    wager_not_pay? :place, 4
+    wager_not_pay? :place, 5
   end
 
   test "should not pay user accordingly for winning horse placed straight wager" do
     login
-    does_wager_not_pay :straight, 1
-    does_wager_not_pay :straight, 2
-    does_wager_not_pay :straight, 3
-    does_wager_not_pay :straight, 4
-    does_wager_not_pay :straight, 5
+    wager_not_pay? :straight, 1
+    wager_not_pay? :straight, 2
+    wager_not_pay? :straight, 3
+    wager_not_pay? :straight, 4
+    wager_not_pay? :straight, 5
   end
 
   test "should lose user money for a bad bet" do
@@ -362,19 +362,19 @@ class HorseRacesControllerTest < ActionDispatch::IntegrationTest # rubocop:disab
     login
 
     # Do all the bets on the horses
-    does_wager_not_pay :show, 3
-    does_wager_not_pay :show, 4
-    does_wager_not_pay :show, 5
+    wager_not_pay? :show, 3
+    wager_not_pay? :show, 4
+    wager_not_pay? :show, 5
 
-    does_wager_not_pay :place, 2
-    does_wager_not_pay :place, 3
-    does_wager_not_pay :place, 4
-    does_wager_not_pay :place, 5
+    wager_not_pay? :place, 2
+    wager_not_pay? :place, 3
+    wager_not_pay? :place, 4
+    wager_not_pay? :place, 5
 
-    does_wager_not_pay :straight, 1
-    does_wager_not_pay :straight, 2
-    does_wager_not_pay :straight, 3
-    does_wager_not_pay :straight, 4
-    does_wager_not_pay :straight, 5
+    wager_not_pay? :straight, 1
+    wager_not_pay? :straight, 2
+    wager_not_pay? :straight, 3
+    wager_not_pay? :straight, 4
+    wager_not_pay? :straight, 5
   end
 end
